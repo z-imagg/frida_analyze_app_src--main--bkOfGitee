@@ -17,7 +17,7 @@
 
 4. 无
 5. 利用frida生成 函数进出日志、进出时刻点日志, console.log ---> send, [frida_js a443](http://giteaz:3000/frida_analyze_app_src/frida_js/commit/a443ba1cfe8a4313fc703e9923dc0094f89e09b1)
-6. frida_js的console.log输出干扰了testdisk的ncurses界面按键输入,  [唯一解决办法是用py驱动frida  , frida_develop 49d6e](http://giteaz:3000/frida_analyze_app_src/frida_develop/commit/49d6e412210580b1ba6c343cd721d608b21ef03c)
+6. frida_js的console.log输出干扰了testdisk的ncurses界面按键输入,  [【唯一解决办法是用py驱动frida  , frida_develop 49d6e】](http://giteaz:3000/frida_analyze_app_src/frida_develop/commit/49d6e412210580b1ba6c343cd721d608b21ef03c)
 
 
 6. TODO 日志最终载入neo4j进行分析：[analyze_by_graph](http://giteaz:3000/frida_analyze_app_src/analyze_by_graph.git)
