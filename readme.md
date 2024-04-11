@@ -30,7 +30,7 @@
 #### 分析 testdisk/qphotorec大致流程
 
 
-[frids_js/8dc3a](http://giteaz:3000/frida_analyze_app_src/frida_js/commit/8dc3a6a4801cc5bae3dcf03402136d4d708d64fb)
+[frids_js/c2de3](http://giteaz:3000/frida_analyze_app_src/frida_js/commit/c2de3531493b66dde939298a9f5d98c2b647e3f2)
 
 
 
