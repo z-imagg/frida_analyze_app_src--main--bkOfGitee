@@ -9,7 +9,10 @@
 
 
 
-#### 分析testdisk大致流程
+#### ~~分析testdisk大致流程~~
+
+放弃testdisk原因： **frida_tools/frida.py 中的交互式界面的输入 与  testdisk的ncurse交互式界面的输入 有冲突**
+
 1. 【可选】github原始仓库[ cgsecurity/testdisk.git](https://github.com/cgsecurity/testdisk.git)
 2.  testdisk编译步骤, 禁用qt, 方便frida的函数___loop_step__,  [cgsecurity--testdisk.git/11d31](https://gitee.com/disk_recovery/cgsecurity--testdisk/commit/11d31526c66f494111334bf97194104f68c31256)
 
@@ -22,3 +25,9 @@
 
 
 6. TODO 日志最终载入neo4j进行分析：[analyze_by_graph](http://giteaz:3000/frida_analyze_app_src/analyze_by_graph.git)
+
+
+#### 分析 testdisk/qphotorec大致流程
+
+
+[frids_js/2238a](http://giteaz:3000/frida_analyze_app_src/frida_js/commit/2238a7a3c0ef183bcefa0507a4fd263db701b3bd)
