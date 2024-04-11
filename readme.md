@@ -35,8 +35,8 @@
 
 - . 2. 带qt的testdisk编译步骤，对u盘创建6个分区， [testdisk/c27a3/README.md](https://gitee.com/disk_recovery/cgsecurity--testdisk/blob/c27a3ae0a9aed9b2a31f2eab9ca4b49ab80ab767/README.md),  [testdisk/fridaAnlzAp/qphotorec/README.md](https://gitee.com/disk_recovery/cgsecurity--testdisk/blob/fridaAnlzAp/qphotorec/README.md)
 
-- . 5. frida_js生成 函数进出日志、进出时刻点日志,[frids_js/81676/fridaJs_runApp.sh](http://giteaz:3000/frida_analyze_app_src/frida_js/src/commit/81676fcf360af9b711958c83afe0c0dcc56c42a0/fridaJs_runApp.sh)
+- . 5. frida_js生成 函数进出日志、进出时刻点日志,[frids_js/f8d80/fridaJs_runApp.sh](http://giteaz:3000/frida_analyze_app_src/frida_js/src/commit/f8d80c10899042cd7d660d93dc5c2b107db01d2f/fridaJs_runApp.sh)
 
 
 
- [frids_js/81676/README.md](http://giteaz:3000/frida_analyze_app_src/frida_js/src/commit/81676fcf360af9b711958c83afe0c0dcc56c42a0/README.md)， 
+其余可看文档， [frids_js/f8d80/README.md](http://giteaz:3000/frida_analyze_app_src/frida_js/src/commit/f8d80c10899042cd7d660d93dc5c2b107db01d2f/README.md)， 
