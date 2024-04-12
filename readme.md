@@ -28,7 +28,7 @@
 
 a. 【[用py驱动frida  , frida_develop 49d6e](http://giteaz:3000/frida_analyze_app_src/frida_develop/commit/49d6e412210580b1ba6c343cd721d608b21ef03c) 】但是frida_develop有问题 其在main之后才开始监控而错过了main, 【[console.log ---> send ，frida_js a443](http://giteaz:3000/frida_analyze_app_src/frida_js/commit/a443ba1cfe8a4313fc703e9923dc0094f89e09b1)】
 
-b.  放弃testdisk, 尝试图形化界面 'testdisk/qphotorec'
+b.  放弃 基于ncurse交互的testdisk, 尝试 图形化界面 'testdisk/qphotorec'
 
 
 
