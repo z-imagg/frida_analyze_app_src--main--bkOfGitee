@@ -13,3 +13,6 @@
 [submodule "torch-cpp"]
 	path = torch-cpp
 	url = http://giteaz:3000/frida_analyze_app_src/torch-cpp.git
+[submodule "app/cgsecurity--testdisk"]
+	path = app/cgsecurity--testdisk
+	url = https://gitee.com/disk_recovery/cgsecurity--testdisk.git
