@@ -25,6 +25,7 @@ echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts
 #{本项目fridaAnlzAp
 mkdir /fridaAnlzAp/
 git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
+( cd /fridaAnlzAp/main &&  git submodule    update --recursive --init )
 # }
 
 #{python依赖安装

@@ -5,11 +5,9 @@
 #【术语】 
 #【备注】   
 
-
-#source me.sh 或 bash me.sh 均能获取当前脚本完整路径的写法
-declare -r f=$(readlink -f ${BASH_SOURCE[0]}) 2>/dev/null
-d=$(dirname $f)
-
+#去此脚本所在目录
+declare -r f=$(readlink -f ${BASH_SOURCE[0]})  ; declare -r d=$(dirname $f)
+cd $d
 
 #构建基础镜像
 docker images -q  --filter "reference=base_ubuntu_22.04"  ||  docker build  --no-cache  -f "./base_ubuntu_22_Dockerfile" -t base_ubuntu_22.04:0.1 "./" 
@@ -28,9 +26,7 @@ imageIdLs=$(docker images -q  --filter "reference=frida_anlz_ap")
 #开发用，重启宿主机的web服务
 { kill -9 $(ps auxf | grep python3 | grep 8000 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /tmp/app/ && python3 -m http.server 8000 & )
 
-#去此脚本所在目录
-f=$(readlink -f ${BASH_SOURCE[0]})  ; d=$(dirname $f)
-cd $d
+
 
 #构建 frida_anlz_ap镜像
 # --pull  --rm
