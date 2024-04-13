@@ -11,9 +11,10 @@ RUN bash /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-p
 #}
 
 #{nvm,nodejs
-RUN git clone  https://gitclone.com/github.com/nvm-sh/nvm.git
-RUN source /app/nvm/nvm.sh
+#https://gitee.com/repok/nvm-sh--nvm.git
+RUN git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/nvm
 #}
+
 COPY  my_env_prepare.sh /
 
 LABEL maintainer="prgrmz07 <prgrmz07@163.com>"

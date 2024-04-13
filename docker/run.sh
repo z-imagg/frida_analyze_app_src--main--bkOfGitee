@@ -5,6 +5,12 @@
 #【术语】 
 #【备注】   
 
+
+#source me.sh 或 bash me.sh 均能获取当前脚本完整路径的写法
+declare -r f=$(readlink -f ${BASH_SOURCE[0]}) 2>/dev/null
+d=$(dirname $f)
+
+
 #构建基础镜像
 docker images -q  --filter "reference=base_ubuntu_22.04"  ||  docker build  --no-cache  -f "./base_ubuntu_22_Dockerfile" -t base_ubuntu_22.04:0.1 "./" 
 

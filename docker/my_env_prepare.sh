@@ -6,26 +6,45 @@
 #【备注】   
 
 echo "welcome to my_env"
+#{miniconda
 source /app/Miniconda3-py310_22.11.1-1/bin/activate
+#}
 
-#已安装好nvm环境， 参考 https://blog.csdn.net/hfcaoguilin/article/details/124598084#t9
-#/app/nvm/.git/config ::  https://gitclone.com/github.com/nvm-sh/nvm.git
-# source /app/nvm/nvm.sh
+#{nvm,nodejs
+source /app/nvm/nvm.sh
 export NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
-export PATH=/app/bin:$PATH
-
-#github-gitee-GITEA
-# alias gg='source /fridaAnlzAp/github-gitee-GITEA/script/cmd_setup.sh'
+# export PATH=/app/bin:$PATH
+#}
 
 
+#{本地gitea服务器
+echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts
+#}
+
+#{本项目fridaAnlzAp
+mkdir /fridaAnlzAp/
+git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
+# }
+
+#{python依赖安装
+pip install -r /fridaAnlzAp/cmd-wrap/requirements.txt
+pip install -r /fridaAnlzAp/frida_js/requirements.txt
+pip install -r /fridaAnlzAp/analyze_by_graph/requirements.txt
+#}
+
+#{nodejs依赖安装
+(cd /fridaAnlzAp/frida_js/ && npm install )
+#}
+
+#{neo4j安装
+bash /fridaAnlzAp/analyze_by_graph/doc/neo4j_linux_dl_install.sh
+#}
+
+#{cytoscape还是运行在宿主机上吧
+#}
+
+cd /fridaAnlzAp/main/
+/usr/bin/bash --rcfile <(echo "source /app/Miniconda3-py310_22.11.1-1/bin/activate; source /app/nvm/nvm.sh")
 
 
-#【编译命令拦截器】根据入口者查询业务者
-# export PATH=$PATH:/app/cmd-wrap/tool_bin
-# source /app/cmd-wrap/tool_bin/bash-complete--queryBuszByFakeCmd.sh
-# #以自安装miniconda环境中的python运行 此脚本，不影响系统自带python
-# alias queryBuszByFakeCmd.py='/app/Miniconda3-py310_22.11.1-1/bin/python /app/cmd-wrap/tool_bin/queryBuszByFakeCmd.py'
-
-
-/usr/bin/bash
