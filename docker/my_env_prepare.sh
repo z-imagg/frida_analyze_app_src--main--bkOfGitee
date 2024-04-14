@@ -88,7 +88,7 @@ F="zulu17.48.15-ca-jdk17.0.10-linux_x64.tar.gz" ; ./download_unpack.sh https://c
 # #endregion
 
 
-;}
+}
 # #endregion
 
 # #region 配置包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
