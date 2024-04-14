@@ -27,7 +27,7 @@ mkdir /fridaAnlzAp/
 git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
 ( cd /fridaAnlzAp/main &&  git submodule    update --recursive --init )
 
-#直接子模块 链接到 上层目录
+#直接子模块 或 app 链接到 上层目录
 # /fridaAnlzAp/x --->  /fridaAnlzAp/main/x
 # /fridaAnlzAp/main/analyze_by_graph --> /fridaAnlzAp/analyze_by_graph
 # /fridaAnlzAp/main/cmd-wrap --> /fridaAnlzAp/cmd-wrap
@@ -49,22 +49,35 @@ print(relative_path)
 EOF
 rltvPth=$(python3 _relative_to.py)
 
-cat  << 'EOF' > _slash_cnt.py
-sm_path="$sm_path"; 
-print(sm_path.count("/"))
-EOF
-slash_cnt=$(python3 _slash_cnt.py)
-
-cat  << 'EOF' > _startwith_app.py
-sm_path="$sm_path"; 
+cat  << 'EOF' > _calc_doLink.py
+rltvPth="$rltvPth"; 
+#斜线个数
+slash_cnt=rltvPth.count("/")
+#是否以app开头
+startswith_app:bool=rltvPth.startswith("app/") ; 
+#做软链接吗？ 假设不做
+doLink:bool = False
+#如果 不以app开头 且 无斜线 则 做软链接 
+if (not startswith_app) and  slash_cnt == 0 : doLink=True
+#如果 以app开头 且 斜线个数 为1  则 做软链接 
+if startswith_app and  slash_cnt == 1 : doLink=True
+#python的bool转为dash shell的bool
+#  True|False --> 1|0 --> "true"|"false"
 dash_bool_ls=["false","true"]
-result:bool=sm_path.startswith("app/") ; 
-print(dash_bool_ls[int(result)])
+doLink_shell:str=dash_bool_ls[int(doLink)]
+#打印结果给到外围$()
+print(doLink_shell)
 EOF
-startwith_app=$(python3 _startwith_app.py)
 
-# echo curD=$curD,path=$path, relative_path=$relative_path, name=$name, sm_path=$sm_path, slash_cnt=$slash_cnt, startwith_app=$startwith_app
-echo  relative_path=$relative_path,   slash_cnt=$slash_cnt, startwith_app=$startwith_app
+echo  -n rltvPth=$rltvPth ；
+
+doLink=$(python3 _calc_doLink.py)
+if $doLink ; then
+  dst="/fridaAnlzAp/$(basename $sm_path)" 
+  unlink  $dst 2>/dev/null ; { ln -s   $curD $dst && echo "【做软链接】 $curD --> $dst" ;}
+else
+  echo "【忽略】"
+fi
 '
 
 # }
