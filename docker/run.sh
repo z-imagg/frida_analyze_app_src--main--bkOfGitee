@@ -24,7 +24,7 @@ imageIdLs=$(docker images -q  --filter "reference=frida_anlz_ap")
 # curl --silent  localhost:8000 > /dev/null
 
 #开发用，重启宿主机的web服务
-{ kill -9 $(ps auxf | grep python3 | grep 8000 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /tmp/app/ && python3 -m http.server 8000 & )
+{ kill -9 $(ps auxf | grep python3 | grep 8000 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python3 -m http.server 8000 & )
 
 
 
