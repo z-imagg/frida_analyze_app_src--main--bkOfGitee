@@ -9,7 +9,7 @@ function get_bash_en_dbg() {
   bash_en_dbg=false; [[ $- == *x* ]] && bash_en_dbg=true #记录bash是否启用了调试模式
 }
 
-echo "welcome to my_env"
+echo "welcome to my_env_prepare"
 
 #{miniconda
 get_bash_en_dbg  ;  $bash_en_dbg && set +x 
@@ -130,7 +130,5 @@ bash /fridaAnlzAp/analyze_by_graph/doc/neo4j_linux_dl_install.sh
 #{cytoscape还是运行在宿主机上吧
 #}
 
-cd /fridaAnlzAp/main/
-/usr/bin/bash --rcfile <(echo "source /app/Miniconda3-py310_22.11.1-1/bin/activate; source /app/nvm/nvm.sh")
 
 

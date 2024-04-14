@@ -1,3 +1,5 @@
+#【备注】 
+
 # FROM ubuntu:22.04 as base
 FROM base_ubuntu_22.04:0.1 as base
 
@@ -15,12 +17,15 @@ RUN bash /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-p
 RUN git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/nvm
 #}
 
-COPY  my_env_prepare.sh /
+COPY  my_env_prepare.sh /my_env_prepare.sh
+
+RUN /my_env_prepare.sh
 
 LABEL maintainer="prgrmz07 <prgrmz07@163.com>"
 LABEL version="0.1"
 LABEL description="fridaAnlzAp docker 环境"
 
 
+COPY  docker_entry.sh /docker_entry.sh
 
-ENTRYPOINT [ "/my_env_prepare.sh" ]
+ENTRYPOINT [ "/docker_entry..sh" ]
