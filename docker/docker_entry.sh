@@ -1,4 +1,4 @@
-#!/usr/bin/bash -x
+#!/usr/bin/bash
 
 #【描述】  
 #【依赖】   

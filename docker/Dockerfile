@@ -19,7 +19,7 @@ RUN git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/n
 
 COPY  my_env_prepare.sh /my_env_prepare.sh
 
-RUN /my_env_prepare.sh
+RUN bash -x /my_env_prepare.sh
 
 LABEL maintainer="prgrmz07 <prgrmz07@163.com>"
 LABEL version="0.1"
