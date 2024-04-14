@@ -37,6 +37,8 @@ git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
 # /fridaAnlzAp/main/app/cgsecurity--testdisk --> /fridaAnlzAp/cgsecurity--testdisk
 # /fridaAnlzAp/main/app/torch-cpp --> /fridaAnlzAp/torch-cpp
 git submodule foreach --recursive '
+#py根目录
+pyRootD=/tmp/
 #写死项目根目录
 rootD="/fridaAnlzAp/main"
 #子模块目录
@@ -44,18 +46,25 @@ curD=$(pwd)
 #当前时刻毫米数
 nowMs=$(date +%s)
 
-_relative_to__py=_relative_to_$nowMs.py
+_relative_to__py=$pyRootD/_relative_to_$nowMs.py
+#cat写py文件
 cat  << 'EOF' > $_relative_to__py
 from pathlib import Path
+#py变量="dash shell变量的值作为py字符串字面量"
 rootD="$rootD";
 curD="$curD";
+#计算相对目录
 relative_path = Path(curD).relative_to(Path(rootD)) .as_posix()
+#打印结果给到外围dash shell的"$()"
 print(relative_path)
+#py文件结尾
 EOF
 rltvPth=$(python3 $_relative_to__py)
 
-_calc_doLink__py=_calc_doLink_$nowMs.py
+_calc_doLink__py=$pyRootD/_calc_doLink_$nowMs.py
+#cat写py文件
 cat  << 'EOF' > $_calc_doLink__py
+#py变量="dash shell变量的值作为py字符串字面量"
 rltvPth="$rltvPth"; 
 #斜线个数
 slash_cnt=rltvPth.count("/")
@@ -71,8 +80,9 @@ if startswith_app and  slash_cnt == 1 : doLink=True
 #  True|False --> 1|0 --> "true"|"false"
 dash_bool_ls=["false","true"]
 doLink_shell:str=dash_bool_ls[int(doLink)]
-#打印结果给到外围$()
+#打印结果给到外围dash shell的"$()"
 print(doLink_shell)
+#py文件结尾
 EOF
 
 echo  -n rltvPth=$rltvPth ；
