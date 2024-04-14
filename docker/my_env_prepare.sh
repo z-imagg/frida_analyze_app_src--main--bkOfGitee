@@ -214,7 +214,7 @@ pip install -r $RT/fridaAnlzAp/analyze_by_graph/requirements.txt
 #}
 
 #{nodejs依赖安装
-(cd $RT/fridaAnlzAp/frida_js/ && npm install )
+# (cd $RT/fridaAnlzAp/frida_js/ && npm install )
 #}
 
 # #endregion

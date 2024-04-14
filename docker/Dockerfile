@@ -6,23 +6,19 @@ FROM base_ubuntu_22.04:0.1 as base
 # WORKDIR /tmp/ROOT/app
 WORKDIR /
 
-# RUN mkdir /tmp/ROOT
-
+# 标明 目录含义:  dockerImage_build_run.sh  : 'docker build  ... -t frida_anlz_ap:0.1 "/左"  '     ，  'COPY /左  /右'   
+#         注意 两者 的 左 是同一个东西
 COPY /fridaAnlzAp/main/docker /fridaAnlzAp/main/docker
 
-# COPY my_env_prepare.sh /my_env_prepare.sh
-
 RUN --mount=type=cache,target=/dockerBuildROOT \
-# RUN --mount=type=bind,source=/host_dockerBuildROOT,target=/dockerBuildROOT,readwrite \
-# RUN --mount=type=cache,target=/dockerBuildROOT,sharing=locked,id=id_preapare \
 /fridaAnlzAp/main/docker/my_env_prepare.sh && \
-cp -r /dockerBuildROOT/app / && \
-cp -r /host_dockerBuildROOT/fridaAnlzAp / && \
-rm -frv /app/pack/
-
+# 标明 目录含义:  'cp /左 /右'  ,   'RUN ... target=/左'  
+#         注意 两者 的 左 是同一个东西
 # 保存 my_env_prepare.sh 执行结果目录
-# COPY --from=id_preapare /dockerBuildROOT/app /app
-# COPY /tmp/ROOT/fridaAnlzAp /fridaAnlzAp
+cp -r /dockerBuildROOT/app / && \
+cp -r /dockerBuildROOT/fridaAnlzAp / && \
+# 删除软件包
+rm -frv /app/pack/
 
 RUN ls /app/
 
