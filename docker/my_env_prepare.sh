@@ -5,13 +5,23 @@
 #【术语】 
 #【备注】   
 
+function get_bash_en_dbg() {
+  bash_en_dbg=false; [[ $- == *x* ]] && bash_en_dbg=true #记录bash是否启用了调试模式
+}
+
 echo "welcome to my_env"
+
 #{miniconda
+get_bash_en_dbg  ;  $bash_en_dbg && set +x 
 source /app/Miniconda3-py310_22.11.1-1/bin/activate
+$bash_en_dbg && set -x
 #}
 
 #{nvm,nodejs
+get_bash_en_dbg  ;  $bash_en_dbg && set +x 
 source /app/nvm/nvm.sh
+$bash_en_dbg && set -x
+
 export NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 # export PATH=/app/bin:$PATH
