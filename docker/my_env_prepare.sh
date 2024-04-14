@@ -37,17 +37,34 @@ git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
 # /fridaAnlzAp/main/app/cgsecurity--testdisk --> /fridaAnlzAp/cgsecurity--testdisk
 # /fridaAnlzAp/main/app/torch-cpp --> /fridaAnlzAp/torch-cpp
 git submodule foreach --recursive '
-  #因为pwd已经是子模块目录,不需要再加sm_path了, realDir=$(pwd)/$sm_path
-  realDir=$(pwd)  #子模块目录
-  if  case $sm_path in "app/"*"/"*) true;;     *) false;; esac; then
-  echo "【忽略app的子模块】$realDir "
-elif case $sm_path in "app/"*) true;;     *) false;; esac; then
-  dst="/fridaAnlzAp/$(basename $sm_path)" 
-  unlink  $dst 2>/dev/null ; { ln -s   $realDir $dst && echo "【软链接 app/子模块】 $realDir --> $dst" ;}
-else
-  dst="/fridaAnlzAp/$sm_path" 
-  unlink  $dst  2>/dev/null ; { ln -s  $realDir $dst && echo "【软链接 子模块】 $realDir --> $dst" ;}
-fi
+rootD="/fridaAnlzAp/main"
+curD=$(pwd)
+
+cat  << 'EOF' > _relative_to.py
+from pathlib import Path
+rootD="$rootD";
+curD="$curD";
+relative_path = Path(curD).relative_to(Path(rootD)) .as_posix()
+print(relative_path)
+EOF
+rltvPth=$(python3 _relative_to.py)
+
+cat  << 'EOF' > _slash_cnt.py
+sm_path="$sm_path"; 
+print(sm_path.count("/"))
+EOF
+slash_cnt=$(python3 _slash_cnt.py)
+
+cat  << 'EOF' > _startwith_app.py
+sm_path="$sm_path"; 
+dash_bool_ls=["false","true"]
+result:bool=sm_path.startswith("app/") ; 
+print(dash_bool_ls[int(result)])
+EOF
+startwith_app=$(python3 _startwith_app.py)
+
+# echo curD=$curD,path=$path, relative_path=$relative_path, name=$name, sm_path=$sm_path, slash_cnt=$slash_cnt, startwith_app=$startwith_app
+echo  relative_path=$relative_path,   slash_cnt=$slash_cnt, startwith_app=$startwith_app
 '
 
 # }
