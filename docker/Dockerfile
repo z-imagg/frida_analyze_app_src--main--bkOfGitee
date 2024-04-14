@@ -28,4 +28,4 @@ LABEL description="fridaAnlzAp docker 环境"
 
 COPY  docker_entry.sh /docker_entry.sh
 
-ENTRYPOINT [ "/docker_entry..sh" ]
+ENTRYPOINT [ "/docker_entry.sh" ]
