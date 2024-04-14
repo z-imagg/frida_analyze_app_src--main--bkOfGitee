@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/bash +x
 
 #【描述】  
 #【依赖】   
@@ -6,7 +6,8 @@
 #【备注】   
 
 # #region 基础头
-shopt -s expand_aliases
+# shopt -s expand_aliases
+echo -n "PWD="; pwd ; ls /tmp;  exit 1 #调试用，在脚本中间退出，免去大量日志
 
 wget --quiet --output-document=download_unpack.sh http://giteaz:3000/bal/bash-simplify/raw/commit/5b9656e7bcf10b4d187eef6fcebaab627089160f/download_unpack.sh
 chmod +x download_unpack.sh
