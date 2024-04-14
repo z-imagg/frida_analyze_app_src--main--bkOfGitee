@@ -16,8 +16,9 @@ RUN --mount=type=cache,target=/dockerBuildROOT \
 # RUN --mount=type=bind,source=/host_dockerBuildROOT,target=/dockerBuildROOT,readwrite \
 # RUN --mount=type=cache,target=/dockerBuildROOT,sharing=locked,id=id_preapare \
 /fridaAnlzAp/main/docker/my_env_prepare.sh && \
-cp -r /dockerBuildROOT/app /
-# cp -rv /host_dockerBuildROOT/fridaAnlzAp /
+cp -r /dockerBuildROOT/app / && \
+cp -r /host_dockerBuildROOT/fridaAnlzAp / && \
+rm -frv /app/pack/
 
 # 保存 my_env_prepare.sh 执行结果目录
 # COPY --from=id_preapare /dockerBuildROOT/app /app
