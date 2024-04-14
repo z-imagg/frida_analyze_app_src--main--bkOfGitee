@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash -x
 
 #【描述】  
 #【依赖】   
@@ -15,6 +15,9 @@ source /app/nvm/nvm.sh
 export NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 # export PATH=/app/bin:$PATH
+NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm  ls-remote | grep v18. | grep LTS
+NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1
+#v18.19.1 是 nodejs  LTS v18 系列 中 最后一个版本
 #}
 
 
