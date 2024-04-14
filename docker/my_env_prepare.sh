@@ -37,19 +37,25 @@ git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
 # /fridaAnlzAp/main/app/cgsecurity--testdisk --> /fridaAnlzAp/cgsecurity--testdisk
 # /fridaAnlzAp/main/app/torch-cpp --> /fridaAnlzAp/torch-cpp
 git submodule foreach --recursive '
+#写死项目根目录
 rootD="/fridaAnlzAp/main"
+#子模块目录
 curD=$(pwd)
+#当前时刻毫米数
+nowMs=$(date +%s)
 
-cat  << 'EOF' > _relative_to.py
+_relative_to__py=_relative_to_$nowMs.py
+cat  << 'EOF' > $_relative_to__py
 from pathlib import Path
 rootD="$rootD";
 curD="$curD";
 relative_path = Path(curD).relative_to(Path(rootD)) .as_posix()
 print(relative_path)
 EOF
-rltvPth=$(python3 _relative_to.py)
+rltvPth=$(python3 $_relative_to__py)
 
-cat  << 'EOF' > _calc_doLink.py
+_calc_doLink__py=_calc_doLink_$nowMs.py
+cat  << 'EOF' > $_calc_doLink__py
 rltvPth="$rltvPth"; 
 #斜线个数
 slash_cnt=rltvPth.count("/")
@@ -71,7 +77,7 @@ EOF
 
 echo  -n rltvPth=$rltvPth ；
 
-doLink=$(python3 _calc_doLink.py)
+doLink=$(python3 $_calc_doLink__py)
 if $doLink ; then
   dst="/fridaAnlzAp/$(basename $sm_path)" 
   unlink  $dst 2>/dev/null ; { ln -s   $curD $dst && echo "【做软链接】 $curD --> $dst" ;}
