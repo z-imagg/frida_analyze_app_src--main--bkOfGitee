@@ -99,6 +99,7 @@ fi
 # }
 
 #{python依赖安装
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip install -r /fridaAnlzAp/cmd-wrap/requirements.txt
 pip install -r /fridaAnlzAp/frida_js/requirements.txt
 pip install -r /fridaAnlzAp/analyze_by_graph/requirements.txt
