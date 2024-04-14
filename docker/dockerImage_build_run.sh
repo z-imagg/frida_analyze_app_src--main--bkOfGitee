@@ -35,5 +35,5 @@ docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "./Do
 #  -v hostDir:dirInDocker
 # -v  /tmp/app/:/app/ 
 #-v  /tmp/fridaAnlzAp:/fridaAnlzAp
-docker run -it  frida_anlz_ap:0.1
+# docker run -it  frida_anlz_ap:0.1
 

@@ -7,19 +7,26 @@
 
 # #region 基础头
 # shopt -s expand_aliases
-echo -n "PWD="; pwd ; ls /tmp;  exit 1 #调试用，在脚本中间退出，免去大量日志
+# echo -n "PWD="; pwd ; ls /tmp; set +x;  echo "DEBUG=$-";  exit 1 #调试用，在脚本中间退出，免去大量日志
 
-wget --quiet --output-document=download_unpack.sh http://giteaz:3000/bal/bash-simplify/raw/commit/5b9656e7bcf10b4d187eef6fcebaab627089160f/download_unpack.sh
-chmod +x download_unpack.sh
+# docker的RUN命令运行在另一个操作系统中，该操作系统 基于 Ubuntu Jammy Jellyfish 名为  buildkitsandbox
+# echo -n "PYTHON="; which python ; exit 0
+# 无python
 
-#去此脚本所在目录
-declare -r f=$(readlink -f ${BASH_SOURCE[0]})  ; declare -r d=$(dirname $f)
-cd $d
+# echo -n "uname="; uname -a ; exit 0
+# Linux buildkitsandbox 6.5.0-27-generic #28~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Mar 15 10:51:06 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+
+# echo -n "/etc/issue:"; cat /etc/issue ; exit 0
+# #/etc/issue:  Ubuntu Jammy Jellyfish (development branch) \n \l
+
+F_dl_unpkg_sh=/tmp/download_unpack.sh
+wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/5b9656e7bcf10b4d187eef6fcebaab627089160f/download_unpack.sh
+chmod +x $F_dl_unpkg_sh
 
 # #region cytoscape 运行在宿主机上
 rootFsType=$(findmnt -n -o FSTYPE /)
 #若根目录挂载的文件系统类型为overlay, 则当前极有可能在docker下
-inDocker=[[ "$rootFsType" == "overlay" ]]
+inDocker=$( { [[ "$rootFsType" == "overlay" ]] && echo "true" ;} || echo "false"  )
 
 
 # #endregion
@@ -47,33 +54,31 @@ echo "welcome to my_env_prepare"
 git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  $RT/app/nvm
 
 #nvm函数导入
-set +x 
-source $RT/app/nvm/nvm.sh
-set -x
+source $RT/app/nvm/nvm.sh 1>/dev/null 2>/dev/null
 
 #nvm安装nodejs-v18.19.1
 #  v18.19.1 是 nodejs  LTS v18 系列 中 最后一个版本
 export NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 # export PATH=/app/bin:$PATH
-NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm  ls-remote | grep v18. | grep LTS
-NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1
+# NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm  ls-remote | grep v18. | grep LTS
+NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1  1>/dev/null 2>/dev/null
 # #endregion
 
 # #region 下载包 、 解压包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
 
 #miniconda3
-F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; ./download_unpack.sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
+F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
 
 #neo4j-4.4.32
-F="neo4j-community-4.4.32-unix.tar.gz" ; ./download_unpack.sh https://neo4j.com/artifact.php?name=$F a88d5de65332d9a5acbe131f60893b55  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
+F="neo4j-community-4.4.32-unix.tar.gz" ; $F_dl_unpkg_sh https://neo4j.com/artifact.php?name=$F a88d5de65332d9a5acbe131f60893b55  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
 
 #neo4j-4.4.32需要的jdk11
-F="zulu11.70.15-ca-jdk11.0.22-linux_x64.tar.gz" ; ./download_unpack.sh https://cdn.azul.com/zulu/bin/$F f13d179f8e1428a3f0f135a42b9fa75b  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
+F="zulu11.70.15-ca-jdk11.0.22-linux_x64.tar.gz" ; $F_dl_unpkg_sh https://cdn.azul.com/zulu/bin/$F f13d179f8e1428a3f0f135a42b9fa75b  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
 
 #neo4j安装apoc插件
-F="apoc-4.4.0.26-all.jar" ; ./download_unpack.sh https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.4.0.26/$F 5a42a32e12432632124acd682382c91d  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
+F="apoc-4.4.0.26-all.jar" ; $F_dl_unpkg_sh https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.4.0.26/$F 5a42a32e12432632124acd682382c91d  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
 
 # #endregion
 
@@ -84,10 +89,10 @@ $inDocker || { \
 # https://github.com/cytoscape/cytoscape/releases/tag/3.10.2
 
 # cytoscape-3.10.2
-F="cytoscape-unix-3.10.2.tar.gz" ; ./download_unpack.sh https://github.com/cytoscape/cytoscape/releases/download/3.10.2/$F a6b5638319b301bd25e0e6987b3e35fd  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
+F="cytoscape-unix-3.10.2.tar.gz" ; $F_dl_unpkg_sh https://github.com/cytoscape/cytoscape/releases/download/3.10.2/$F a6b5638319b301bd25e0e6987b3e35fd  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
 
 # cytoscape-3.10.2需要的jdk17
-F="zulu17.48.15-ca-jdk17.0.10-linux_x64.tar.gz" ; ./download_unpack.sh https://cdn.azul.com/zulu/bin/$F bb826d2598b6ceaaae56a6c938f2030e  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
+F="zulu17.48.15-ca-jdk17.0.10-linux_x64.tar.gz" ; $F_dl_unpkg_sh https://cdn.azul.com/zulu/bin/$F bb826d2598b6ceaaae56a6c938f2030e  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
 
 # #endregion
 
