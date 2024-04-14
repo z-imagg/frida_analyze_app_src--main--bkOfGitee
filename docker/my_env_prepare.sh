@@ -7,7 +7,8 @@
 
 # #region 基础头
 # shopt -s expand_aliases
-# echo -n "PWD="; pwd ; ls /tmp; set +x;  echo "DEBUG=$-";  exit 1 #调试用，在脚本中间退出，免去大量日志
+# echo -n "PWD="; pwd ; ls /fridaAnlzAp/main/docker/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh; set +x;  echo "DEBUG=$-";  exit 1 #调试用，在脚本中间退出，免去大量日志
+#PWD=/;  ; DEBUG=hB
 
 # docker的RUN命令运行在另一个操作系统中，该操作系统 基于 Ubuntu Jammy Jellyfish 名为  buildkitsandbox
 # echo -n "PYTHON="; which python ; exit 0
@@ -18,6 +19,22 @@
 
 # echo -n "/etc/issue:"; cat /etc/issue ; exit 0
 # #/etc/issue:  Ubuntu Jammy Jellyfish (development branch) \n \l
+
+# apt search --names-only python; which python; exit 0
+# apt install -y python3; which python3; #exit 0
+
+# 若在docker下 根目录为 /dockerBuildROOT/ 否则 根目录为 /
+{ $inDocker && { RT=/dockerBuildROOT  ;} ;} || RT="/"
+#&& mkdir -p $RT
+
+
+TmpCondaHome=/tmp/app/Miniconda3-py310_22.11.1-1
+bash $RT/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $TmpCondaHome ; source  $TmpCondaHome/bin/activate ;  #exit 0
+
+which python #/app/Miniconda3-py310_22.11.1-1/bin/python
+ls / /tmp/app /fridaAnlzAp #
+
+# apt install -y python3-pip; pip show urllib3; #exit 0
 
 F_dl_unpkg_sh=/tmp/download_unpack.sh
 wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/5b9656e7bcf10b4d187eef6fcebaab627089160f/download_unpack.sh
@@ -35,19 +52,16 @@ inDocker=$( { [[ "$rootFsType" == "overlay" ]] && echo "true" ;} || echo "false"
 # #region 开发体
 
 #开发用，本地文件下载web服务
-{ kill -9 $(ps auxf | grep python3 | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python3 -m http.server 2111 & )
+# 物理机下才 启动 本地文件下载web服务
+$inDocker || {  { kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python -m http.server 2111 & ) ;}
 #本地文件下载web服务 url主要部分
 LocalFileWebSrv=http://172.17.0.1:2111
 
 # #endregion
 
 # #region 业务体
-# 若在docker下 根目录为 /tmp/ROOT/ 否则 根目录为 /
-{ $inDocker && { RT=/tmp/ROOT/ && mkdir -p $RT ;} ;} || RT="/"
-
 
 echo "welcome to my_env_prepare"
-
 
 # #region nvm克隆、nvm函数导入、nvm安装nodejs-v18.19.1
 #nvm克隆
@@ -66,6 +80,8 @@ NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1  1>/dev/null 2
 # #endregion
 
 # #region 下载包 、 解压包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
+
+echo RT=$RT; ls $RT ; exit 0;
 
 
 #miniconda3

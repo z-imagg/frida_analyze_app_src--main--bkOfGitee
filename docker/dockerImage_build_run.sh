@@ -9,6 +9,11 @@
 declare -r f=$(readlink -f ${BASH_SOURCE[0]})  ; declare -r d=$(dirname $f)
 cd $d
 
+#开发用，本地文件下载web服务
+{ kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python -m http.server 2111 & )
+
+cp /app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh /fridaAnlzAp/main/docker/
+
 #构建基础镜像
 docker images -q  --filter "reference=base_ubuntu_22.04"  ||  docker build --progress=plain --no-cache  -f "./base_ubuntu_22_Dockerfile" -t base_ubuntu_22.04:0.1 "./" 
 
@@ -28,7 +33,7 @@ imageIdLs=$(docker images -q  --filter "reference=frida_anlz_ap")
 # docker镜像构建过程中使用本地域名   add-host=giteaz:10.0.4.9 供给Dockerfile使用
 #      供给Dockerfile使用 == '构建过程中使用 而非docker实例运行过程中使用'
 # --pull  --rm
-docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "./Dockerfile" -t frida_anlz_ap:0.1 "./" 
+docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fridaAnlzAp/main/docker/Dockerfile" -t frida_anlz_ap:0.1 "/" 
 
 #启动 frida_anlz_ap镜像
 #  --rm 
