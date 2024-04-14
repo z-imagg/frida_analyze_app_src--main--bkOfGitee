@@ -8,10 +8,6 @@
 # #region 基础头
 shopt -s expand_aliases
 
-function get_bash_en_dbg() {
-  bash_en_dbg=false; [[ $- == *x* ]] && bash_en_dbg=true #记录bash是否启用了调试模式
-}
-
 wget --quiet --output-document=download_unpack.sh http://giteaz:3000/bal/bash-simplify/raw/commit/5b9656e7bcf10b4d187eef6fcebaab627089160f/download_unpack.sh
 chmod +x download_unpack.sh
 
@@ -41,9 +37,9 @@ echo "welcome to my_env_prepare"
 git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/nvm
 
 #nvm函数导入
-get_bash_en_dbg  ;  $bash_en_dbg && set +x 
+set +x 
 source /app/nvm/nvm.sh
-$bash_en_dbg && set -x
+set -x
 
 #nvm安装nodejs-v18.19.1
 #  v18.19.1 是 nodejs  LTS v18 系列 中 最后一个版本
@@ -94,9 +90,9 @@ F="zulu17.48.15-ca-jdk17.0.10-linux_x64.tar.gz" ; ./download_unpack.sh https://c
 # #region 配置包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
 #miniconda3
-get_bash_en_dbg  ;  $bash_en_dbg && set +x 
+set +x 
 source /app/Miniconda3-py310_22.11.1-1/bin/activate
-$bash_en_dbg && set -x
+set -x
 
 #jdk11 
 export JAVA_HOME=/app/zulu11.70.15-ca-jdk11.0.22-linux_x64

@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY  my_env_prepare.sh /my_env_prepare.sh
 
-RUN bash -x /my_env_prepare.sh
+RUN bash /my_env_prepare.sh
 
 LABEL maintainer="prgrmz07 <prgrmz07@163.com>"
 LABEL version="0.1"
