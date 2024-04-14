@@ -27,6 +27,5 @@ LABEL version="0.1"
 LABEL description="fridaAnlzAp docker 环境"
 
 
-COPY  /fridaAnlzAp/main/docker/docker_entry.sh /docker_entry.sh
 
-ENTRYPOINT [ "/docker_entry.sh" ]
+ENTRYPOINT [ "/fridaAnlzAp/main/docker/docker_entry.sh" ]
