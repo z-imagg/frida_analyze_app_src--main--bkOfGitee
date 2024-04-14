@@ -5,14 +5,6 @@
 #【术语】 
 #【备注】   
 
-set +x
-
-function get_bash_en_dbg() {
-  bash_en_dbg=false; [[ $- == *x* ]] && bash_en_dbg=true #记录bash是否启用了调试模式
-}
-
-echo "welcome to my docker_entry"
-
 
 
 cd /fridaAnlzAp/main/
