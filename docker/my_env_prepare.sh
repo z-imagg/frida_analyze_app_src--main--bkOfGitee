@@ -94,7 +94,9 @@ mkdir -p $RT/app/pack/ $RT/app/
 #miniconda3
 F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
 
-bash  $RT/app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $RT/app/Miniconda3-py310_22.11.1-1/
+#conda安装目录后 目录不能移动，因此才做的软链接。 TODO, 待验证
+ln -s $RT/app /app
+bash  $RT/app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-py310_22.11.1-1/
 
 #neo4j-4.4.32
 F="neo4j-community-4.4.32-unix.tar.gz" ; $F_dl_unpkg_sh https://neo4j.com/artifact.php?name=$F a88d5de65332d9a5acbe131f60893b55  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
