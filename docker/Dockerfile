@@ -4,7 +4,7 @@ FROM base_ubuntu_22.04:0.1 as base
 WORKDIR /app
 
 #{miniconda
-RUN wget  --output-document=/tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh http://172.17.0.1:8000/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh  
+RUN wget  --output-document=/tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh http://172.17.0.1:2111/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh  
 # RUN axel --insecure   --output=/app/pack/fridaAnlzAp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh  -n 7 https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh
 RUN bash /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-py310_22.11.1-1 
 # RUN rm -v /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh

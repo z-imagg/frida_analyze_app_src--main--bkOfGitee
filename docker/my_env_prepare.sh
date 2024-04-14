@@ -27,6 +27,7 @@ mkdir /fridaAnlzAp/
 git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
 ( cd /fridaAnlzAp/main &&  git submodule    update --recursive --init )
 
+cd /fridaAnlzAp/main/
 #直接子模块 或 app 链接到 上层目录
 # /fridaAnlzAp/x --->  /fridaAnlzAp/main/x
 # /fridaAnlzAp/main/analyze_by_graph --> /fridaAnlzAp/analyze_by_graph
