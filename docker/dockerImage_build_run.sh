@@ -23,10 +23,6 @@ imageIdLs=$(docker images -q  --filter "reference=frida_anlz_ap")
 
 # curl --silent  localhost:2111 > /dev/null
 
-#开发用，重启宿主机的web服务
-{ kill -9 $(ps auxf | grep python3 | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python3 -m http.server 2111 & )
-
-
 
 #构建 frida_anlz_ap镜像
 # docker镜像构建过程中使用本地域名   add-host=giteaz:10.0.4.9 供给Dockerfile使用

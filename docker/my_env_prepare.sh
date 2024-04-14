@@ -5,9 +5,26 @@
 #【术语】 
 #【备注】   
 
+#去此脚本所在目录
+declare -r f=$(readlink -f ${BASH_SOURCE[0]})  ; declare -r d=$(dirname $f)
+cd $d
+
+shopt -s expand_aliases
+
 function get_bash_en_dbg() {
   bash_en_dbg=false; [[ $- == *x* ]] && bash_en_dbg=true #记录bash是否启用了调试模式
 }
+
+#开发用，重启宿主机的web服务
+{ kill -9 $(ps auxf | grep python3 | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python3 -m http.server 2111 & )
+
+
+wget --quiet --output-document=download_unpack.sh http://giteaz:3000/bal/bash-simplify/raw/commit/5b9656e7bcf10b4d187eef6fcebaab627089160f/download_unpack.sh
+chmod +x download_unpack.sh
+
+#miniconda3
+F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; ./download_unpack.sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /app/pack/ /app/  http://172.17.0.1:2111/$F ; unset F
+
 
 echo "welcome to my_env_prepare"
 
