@@ -12,11 +12,11 @@ COPY /fridaAnlzAp/main/docker /fridaAnlzAp/main/docker
 
 # COPY my_env_prepare.sh /my_env_prepare.sh
 
-# RUN --mount=type=cache,target=/tmp/ROOT/ \
-RUN --mount=type=bind,source=/host_dockerBuildROOT,target=/dockerBuildROOT,readwrite \
+RUN --mount=type=cache,target=/dockerBuildROOT \
+# RUN --mount=type=bind,source=/host_dockerBuildROOT,target=/dockerBuildROOT,readwrite \
 # RUN --mount=type=cache,target=/dockerBuildROOT,sharing=locked,id=id_preapare \
-touch /$(date +%s) && /fridaAnlzAp/main/docker/my_env_prepare.sh && \
-cp -rv /dockerBuildROOT/app /
+/fridaAnlzAp/main/docker/my_env_prepare.sh && \
+cp -r /dockerBuildROOT/app /
 # cp -rv /host_dockerBuildROOT/fridaAnlzAp /
 
 # 保存 my_env_prepare.sh 执行结果目录

@@ -21,33 +21,7 @@
 # #/etc/issue:  Ubuntu Jammy Jellyfish (development branch) \n \l
 
 # apt search --names-only python; which python; exit 0
-# apt install -y python3; which python3; #exit 0
-
-# 若在docker下 根目录为 /dockerBuildROOT/ 否则 根目录为 /
-{ $inDocker && { RT=/dockerBuildROOT  ;} ;} || RT="/"
-#&& mkdir -p $RT
-
-
-TmpCondaHome=/tmp/app/Miniconda3-py310_22.11.1-1
-bash $RT/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $TmpCondaHome ; source  $TmpCondaHome/bin/activate ;  #exit 0
-
-which python #/app/Miniconda3-py310_22.11.1-1/bin/python
-ls / /tmp/app /fridaAnlzAp #
-
-# apt install -y python3-pip; pip show urllib3; #exit 0
-
-F_dl_unpkg_sh=/tmp/download_unpack.sh
-wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/5b9656e7bcf10b4d187eef6fcebaab627089160f/download_unpack.sh
-chmod +x $F_dl_unpkg_sh
-
-# #region cytoscape 运行在宿主机上
-rootFsType=$(findmnt -n -o FSTYPE /)
-#若根目录挂载的文件系统类型为overlay, 则当前极有可能在docker下
-inDocker=$( { [[ "$rootFsType" == "overlay" ]] && echo "true" ;} || echo "false"  )
-
-
-# #endregion
-
+# apt install -y python3; which python3; ln -s `which python3` /usr/bin/python; #exit 0
 
 # #region 开发体
 
@@ -58,6 +32,41 @@ $inDocker || {  { kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}'
 LocalFileWebSrv=http://172.17.0.1:2111
 
 # #endregion
+
+
+# 若在docker下 根目录为 /dockerBuildROOT/ 否则 根目录为 /
+{ $inDocker && { RT=/dockerBuildROOT  ;} ;} || RT="/"
+#&& mkdir -p $RT
+
+
+F_dl_unpkg_sh=/tmp/download_unpack.sh
+wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/20ec94503fff72b47ef6081e0715aa73d5133695/download_unpack.sh
+chmod +x $F_dl_unpkg_sh
+
+
+#miniconda3
+apt instal -y axel 
+Conda3_Home_4dockerbuild=$RT/Miniconda3-py310_22.11.1-1/
+Conda3_Url=$LocalFileWebSrv/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh   
+# Conda3_Url=https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh  
+axel --quiet --insecure  -n 8   --output=/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh   $Conda3_Url
+bash  /Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild 
+
+source  $Conda3_Home_4dockerbuild/bin/activate ;  #exit 0
+
+which python #/app/Miniconda3-py310_22.11.1-1/bin/python
+ls   $Conda3_Home_4dockerbuild #
+
+# apt install -y python3-pip; pip show urllib3; #exit 0
+
+# #region cytoscape 运行在宿主机上
+rootFsType=$(findmnt -n -o FSTYPE /)
+#若根目录挂载的文件系统类型为overlay, 则当前极有可能在docker下
+inDocker=$( { [[ "$rootFsType" == "overlay" ]] && echo "true" ;} || echo "false"  )
+
+
+# #endregion
+
 
 # #region 业务体
 
@@ -81,11 +90,11 @@ NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1  1>/dev/null 2
 
 # #region 下载包 、 解压包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
-echo RT=$RT; ls $RT ; exit 0;
-
-
+mkdir -p $RT/app/pack/ $RT/app/ 
 #miniconda3
 F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
+
+bash  $RT/app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $RT/app/Miniconda3-py310_22.11.1-1/
 
 #neo4j-4.4.32
 F="neo4j-community-4.4.32-unix.tar.gz" ; $F_dl_unpkg_sh https://neo4j.com/artifact.php?name=$F a88d5de65332d9a5acbe131f60893b55  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
@@ -96,6 +105,7 @@ F="zulu11.70.15-ca-jdk11.0.22-linux_x64.tar.gz" ; $F_dl_unpkg_sh https://cdn.azu
 #neo4j安装apoc插件
 F="apoc-4.4.0.26-all.jar" ; $F_dl_unpkg_sh https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.4.0.26/$F 5a42a32e12432632124acd682382c91d  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F ; unset F
 
+ls $RT/app/pack/ $RT/app
 # #endregion
 
 #若docker下 不安装cytoscape，因为很麻烦
@@ -119,9 +129,7 @@ F="zulu17.48.15-ca-jdk17.0.10-linux_x64.tar.gz" ; $F_dl_unpkg_sh https://cdn.azu
 # #region 配置包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
 #miniconda3
-set +x 
 source $RT/app/Miniconda3-py310_22.11.1-1/bin/activate
-set -x
 
 #jdk11 
 export JAVA_HOME=$RT/app/zulu11.70.15-ca-jdk11.0.22-linux_x64
@@ -135,7 +143,7 @@ export PATH=$PATH:$NEO4J_HOME/bin:$JAVA_HOME/bin
 neo4j --help
 # console start   stop    restart status  version help 
 neo4j version #neo4j 4.4.32
-F_cfg=/app/neo4j-community-4.4.32/conf/neo4j.conf
+F_cfg=$RT/app/neo4j-community-4.4.32/conf/neo4j.conf
 grep dbms.default_listen_address $F_cfg
 grep dbms.memory $F_cfg
 cp -v $F_cfg "${F_cfg}_$(date +%s)"
@@ -175,7 +183,7 @@ neo4j start
 echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts
 
 #本项目fridaAnlzAp 代码拉取
-mkdir $RT/fridaAnlzAp/
+mkdir -p $RT/fridaAnlzAp/
 git clone http://giteaz:3000/frida_analyze_app_src/main.git  $RT/fridaAnlzAp/main
 #递归拉取所有子模块
 ( cd $RT/fridaAnlzAp/main &&  git submodule    update --recursive --init )

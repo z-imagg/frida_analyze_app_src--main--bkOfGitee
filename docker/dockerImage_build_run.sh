@@ -12,7 +12,6 @@ cd $d
 #开发用，本地文件下载web服务
 { kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python -m http.server 2111 & )
 
-cp /app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh /fridaAnlzAp/main/docker/
 
 #构建基础镜像
 docker images -q  --filter "reference=base_ubuntu_22.04"  ||  docker build --progress=plain --no-cache  -f "./base_ubuntu_22_Dockerfile" -t base_ubuntu_22.04:0.1 "./" 
