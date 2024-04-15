@@ -26,7 +26,7 @@ wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simpli
 chmod +x $F_dl_unpkg_sh
 
 #miniconda3
-F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F
+F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; bash  $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F
 #neo4j-4.4.32
 F="neo4j-community-4.4.32-unix.tar.gz" ; $F_dl_unpkg_sh https://neo4j.com/artifact.php?name=$F a88d5de65332d9a5acbe131f60893b55  $F $RT/app/pack/ $RT/app/  $LocalFileWebSrv/$F
 #neo4j-4.4.32需要的jdk11

@@ -16,7 +16,8 @@ chmod +x my_env_prepare.sh
 
 
 #下载安装包们
-RT="/" bash  -x dl_pack.sh
+{ kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}
+RT="/" bash  dl_pack.sh
 
 declare -r errMsg6="无可执行文python，请手工安装python3或软链接python3为python,退出代码6"
 which python || {  echo "$errMsg6" && exit 6 ;}
