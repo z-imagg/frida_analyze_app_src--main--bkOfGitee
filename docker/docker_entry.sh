@@ -8,6 +8,6 @@
 
 
 cd /fridaAnlzAp/
-/usr/bin/bash --rcfile <(echo "source /app/Miniconda3-py310_22.11.1-1/bin/activate; source /app/nvm/nvm.sh")
+/usr/bin/bash
 
 
