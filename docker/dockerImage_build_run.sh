@@ -14,9 +14,13 @@ cd $d
 
 chmod +x my_env_prepare.sh
 
+
+#下载安装包们
+RT="/" bash  -x dl_pack.sh
+
+declare -r errMsg6="无可执行文python，请手工安装python3或软链接python3为python,退出代码6"
+which python || {  echo "$errMsg6" && exit 6 ;}
 #开发用，本地文件下载web服务
-[[ -d /app/pack/ ]] || {  echo "无目录/app/pack，请手工创建并设置主人为当前用户,退出代码5" && exit 5 ;}
-which python || {  echo "无可执行文python，请手工安装python3或软链接python3为python,退出代码6" && exit 6 ;}
 { kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  (cd /app/pack/ && python -m http.server 2111 & )
 
 
