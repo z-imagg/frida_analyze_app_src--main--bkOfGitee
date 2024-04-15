@@ -15,10 +15,7 @@ RUN --mount=type=cache,target=/dockerBuildROOT \
 # 标明 目录含义:  'cp /左 /右'  ,   'RUN ... target=/左'  
 #         注意 两者 的 左 是同一个东西
 # 保存 my_env_prepare.sh 执行结果目录
-cp -r /dockerBuildROOT/app / && \
-cp -r /dockerBuildROOT/fridaAnlzAp / && \
-# 删除软件包
-rm -frv /app/pack/
+true
 
 RUN ls /app/
 
