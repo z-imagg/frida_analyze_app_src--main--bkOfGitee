@@ -16,7 +16,7 @@ mkdir -p /app/pack/ /app/
 # #region 基础头
 shopt -s expand_aliases
 
-# #region 开发体
+#   #region 开发体
 
 chmod +x /dockerBuildROOT/fridaAnlzAp/main/docker/*.sh
 
@@ -33,7 +33,7 @@ $inDocker || {  kill_file_web_srv  ;  boot_file_web_srv  ;}
 #本地文件下载web服务 url主要部分 ， 172.17.0.1 是 物理真实宿主机 ip
 LocalFileWebSrv=http://172.17.0.1:2111
 
-# #endregion
+#   #endregion
 
 F_dl_unpkg_sh=/tmp/download_unpack.sh
 wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/branch/app_spy/dev/download_unpack.sh
@@ -56,11 +56,11 @@ ls   $Conda3_Home_4dockerbuild #
 # #endregion
 
 
-# #region 业务体
+# #region 软件包 安装、配置
 
 echo "welcome to my_env_prepare"
 
-# #region nvm克隆、nvm函数导入、nvm安装nodejs-v18.19.1
+#   #region nvm克隆、nvm函数导入、nvm安装nodejs-v18.19.1
 #nvm克隆
 git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/nvm
 
@@ -73,9 +73,9 @@ export NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/
 # NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm  ls-remote | grep v18. | grep LTS
 NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1  1>/dev/null 2>/dev/null
-# #endregion
+#   #endregion
 
-# #region 下载包 、 解压包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
+#   #region 下载包 、 解压包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
 #下载安装包们
 /dockerBuildROOT/fridaAnlzAp/main/docker/dl_pack.sh
@@ -84,11 +84,9 @@ NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1  1>/dev/null 2
 bash  /app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-py310_22.11.1-1/
 
 # ls /app/pack/ /app
-# #endregion
+#   #endregion
 
-# #endregion
-
-# #region 配置包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
+#   #region 配置包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
 #miniconda3
 # miniconda的安装目录和使用目录要保持一致，否则无法使用
@@ -121,11 +119,13 @@ neo4j-community-4.4.32默认用户名密码 neo4j/neo4j
 web端修改密码, 输入命令 ':server change-password'
 """
 
-# #endregion
+#   #endregion
 
 # #endregion
 
-# #region 项目代码拉取
+# #region 项目
+
+#   #region 项目代码拉取
 
 #本地gitea服务器. 当文件系统是只读时，tee可能会写入了 但还是报错， 因此放入'子进程()'中 避免干扰此脚本
 local_domain_set
@@ -153,10 +153,10 @@ ln -s ./main/app/cgsecurity--testdisk   ./cgsecurity--testdisk
 ln -s ./main/app/torch-cpp  ./torch-cpp
 
 
-# #endregion
+#   #endregion
 
 
-# #region 项目依赖安装
+#   #region 项目依赖安装
 #{python依赖安装
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip install -r /fridaAnlzAp/cmd-wrap/requirements.txt
@@ -169,9 +169,13 @@ ls -lh /
 # (cd /fridaAnlzAp/frida_js/ && npm install )
 #}
 
+#   #endregion
+
 # #endregion
 
+#   #region 结尾
 cp -v /dockerBuildROOT/fridaAnlzAp/main/docker/.bashrc /root/.bashrc
+# #endregion
 
 
 
