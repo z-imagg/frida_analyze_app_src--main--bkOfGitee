@@ -17,8 +17,7 @@ RUN   \
 # 保存 my_env_prepare.sh 执行结果目录
 true
 
-RUN ls /app/ /fridaAnlzAp && \
-( echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts || true )
+RUN ls /app/ /fridaAnlzAp
 
 LABEL maintainer="prgrmz07 <prgrmz07@163.com>"
 LABEL version="0.1"
