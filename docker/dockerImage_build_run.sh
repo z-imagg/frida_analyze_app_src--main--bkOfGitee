@@ -43,6 +43,9 @@ imageIdLs=$(docker images -q  --filter "reference=frida_anlz_ap")
 #构建 frida_anlz_ap镜像
 # docker镜像构建过程中使用本地域名   add-host=giteaz:10.0.4.9 供给Dockerfile使用
 #      供给Dockerfile使用 == '构建过程中使用 而非docker实例运行过程中使用'
+#删除现有镜像
+docker images -q  --filter "reference=frida_anlz_ap" |xargs -I%  docker image rm %
+#重建镜像
 # --pull  --rm
 docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fridaAnlzAp/main/docker/Dockerfile" -t frida_anlz_ap:0.1 "/" 
 
@@ -51,5 +54,6 @@ docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fri
 #  -v hostDir:dirInDocker
 # -v  /tmp/app/:/app/ 
 #-v  /tmp/fridaAnlzAp:/fridaAnlzAp
-# docker run -it  frida_anlz_ap:0.1
+# docker ps  -q  --filter "label=frida_anlz_ap"
+docker run -it  frida_anlz_ap:0.1
 
