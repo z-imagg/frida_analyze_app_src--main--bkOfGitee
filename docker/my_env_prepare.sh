@@ -40,7 +40,7 @@ LocalFileWebSrv=http://172.17.0.1:2111
 
 
 F_dl_unpkg_sh=/tmp/download_unpack.sh
-wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/20ec94503fff72b47ef6081e0715aa73d5133695/download_unpack.sh
+wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/4fdeedd58c1f38478a88aeb2f556922728e99ded/download_unpack.sh
 chmod +x $F_dl_unpkg_sh
 
 

@@ -9,8 +9,10 @@
 declare -r f=$(readlink -f ${BASH_SOURCE[0]})  ; declare -r d=$(dirname $f)
 cd $d
 
+chmod +x my_env_prepare.sh
+
 #开发用，本地文件下载web服务
-{ kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python -m http.server 2111 & )
+{ kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( mkdir -p /app/pack/ &&  cd /app/pack/ && python -m http.server 2111 & )
 
 
 #构建基础镜像
