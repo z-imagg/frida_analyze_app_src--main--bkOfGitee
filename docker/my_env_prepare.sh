@@ -57,6 +57,8 @@ mkdir -p $RT/app/pack/ $RT/app/
 Conda3_Home_4dockerbuild=$RT/Miniconda3-py310_22.11.1-1/
 F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F  ; unset F
 bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild
+# exit 1
+# ls / /tmp $RT $Conda3_Home_4dockerbuild
 source  $Conda3_Home_4dockerbuild/bin/activate ;  #exit 0
 
 which python #/app/Miniconda3-py310_22.11.1-1/bin/python
