@@ -16,7 +16,7 @@ chmod +x my_env_prepare.sh
 
 
 #构建基础镜像
-docker images -q  --filter "reference=base_ubuntu_22.04"  ||  docker build --progress=plain --no-cache  -f "./base_ubuntu_22_Dockerfile" -t base_ubuntu_22.04:0.1 "./" 
+docker images -q  --filter "reference=base_ubuntu_22.04"  ||  docker build --progress=plain --no-cache  -f "/fridaAnlzAp/main/docker/base_ubuntu_22_Dockerfile" -t base_ubuntu_22.04:0.1 "/" 
 
 #删除现有 frida_anlz_ap镜像
 instanceIdLs=$(docker ps -a  -q --filter "ancestor=frida_anlz_ap:0.1")

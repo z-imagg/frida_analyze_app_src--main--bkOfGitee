@@ -4,6 +4,12 @@
 #【依赖】   
 #【术语】 
 #【备注】   
+#【运行环境】 
+#    1. 此脚本 被Dockerfile的RUN命令调用  , 则运行在 Ubuntu Jammy Jellyfish 下
+#    2. 此脚本 在宿主机ubuntu22.04下运行
+
+#此脚本任何语句 退出代码不为正常值0 ，都会导致整个脚本退出
+set -e
 
 # #region 基础头
 # shopt -s expand_aliases
@@ -40,15 +46,16 @@ LocalFileWebSrv=http://172.17.0.1:2111
 
 
 F_dl_unpkg_sh=/tmp/download_unpack.sh
-wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/5f0097fe4b7c5b45eb1da888acd0c32cc76f43eb/download_unpack.sh
+wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/branch/app_spy/dev/download_unpack.sh
+# http://giteaz:3000/bal/bash-simplify/raw/commit/83e2651a5c5dc95ebe2a1331c410742617680e2b/download_unpack.sh
 chmod +x $F_dl_unpkg_sh
 
 
 mkdir -p $RT/app/pack/ $RT/app/
 
 #Dockfile构建过程中需要的miniconda3 下载、安装、使用
-F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F ; unset F
-bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild 
+F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F  ; unset F
+bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild
 source  $Conda3_Home_4dockerbuild/bin/activate ;  #exit 0
 
 which python #/app/Miniconda3-py310_22.11.1-1/bin/python
