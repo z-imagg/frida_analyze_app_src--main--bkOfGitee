@@ -104,9 +104,14 @@ mkdir -p $RT/app/pack/ $RT/app/
 #下载安装包们
 RT=$RT /fridaAnlzAp/main/docker/dl_pack.sh
 
-#conda安装目录后 目录不能移动，因此才做的软链接。 TODO, 待验证
-ln -s $RT/app /app
-bash  $RT/app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-py310_22.11.1-1/
+#miniconda的安装目录和使用目录要保持一致，否则无法使用
+app_ln=/app #末尾不能有斜线
+conda3_inst_dir=$app_ln/Miniconda3-py310_22.11.1-1/
+# 用于欺骗conda安装时的软链接/app
+ln -s $RT/app $app_ln
+# ln -s $RT/app /app
+bash  $RT/app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $conda3_inst_dir
+#                                                                -p /app/Miniconda3-py310_22.11.1-1/
 
 ls $RT/app/pack/ $RT/app
 # #endregion
@@ -116,6 +121,7 @@ ls $RT/app/pack/ $RT/app
 # #region 配置包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
 #miniconda3
+# miniconda的安装目录和使用目录要保持一致，否则无法使用
 source /app/Miniconda3-py310_22.11.1-1/bin/activate
 
 #jdk11 
@@ -208,7 +214,8 @@ ls -lh /
 # #endregion
 
 
-unlink /app
+#取消用于欺骗conda安装时的软链接/app
+unlink $app_ln
 
 #收尾，复制结果文件到 /app, 删除安装包/app/pack/*
 cp -r /dockerBuildROOT/app / && \
