@@ -188,8 +188,8 @@ neo4j start
 
 # #region 项目代码拉取
 
-#本地gitea服务器
-echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts
+#本地gitea服务器. 当文件系统是只读时，tee可能会写入了 但还是报错， 因此放入'子进程()'中 避免干扰此脚本
+( echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts )
 
 #本项目fridaAnlzAp 代码拉取
 mkdir -p $RT/fridaAnlzAp/
