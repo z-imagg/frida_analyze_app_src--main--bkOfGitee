@@ -31,6 +31,8 @@ set -e
 
 # #region 开发体
 
+chmod +x /fridaAnlzAp/main/docker/*.sh
+
 #开发用，本地文件下载web服务
 # 物理机下才 启动 本地文件下载web服务
 $inDocker || {  { kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python -m http.server 2111 & )  ; echo "booting_file_web_server";}
@@ -100,7 +102,7 @@ NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1  1>/dev/null 2
 mkdir -p $RT/app/pack/ $RT/app/ 
 
 #下载安装包们
-RT=$RT bash /fridaAnlzAp/main/docker/dl_pack.sh
+RT=$RT /fridaAnlzAp/main/docker/dl_pack.sh
 
 #conda安装目录后 目录不能移动，因此才做的软链接。 TODO, 待验证
 # ln -s $RT/app /app
