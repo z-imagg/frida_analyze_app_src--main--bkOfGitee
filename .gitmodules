@@ -10,6 +10,9 @@
 [submodule "github-gitee-GITEA"]
 	path = github-gitee-GITEA
 	url = http://giteaz:3000/github_tool/github-gitee-GITEA.git
-[submodule "torch-cpp"]
-	path = torch-cpp
+[submodule "app/cgsecurity--testdisk"]
+	path = app/cgsecurity--testdisk
+	url = https://gitee.com/disk_recovery/cgsecurity--testdisk.git
+[submodule "app/torch-cpp"]
+	path = app/torch-cpp
 	url = http://giteaz:3000/frida_analyze_app_src/torch-cpp.git
