@@ -212,12 +212,4 @@ ls -lh /
 # #endregion
 
 
-#取消用于欺骗conda安装时的软链接/app
-
-#收尾，复制结果文件到 /app, 删除安装包/app/pack/*
-# cp -r /dockerBuildROOT/app / && \
-# cp -r /dockerBuildROOT/fridaAnlzAp / && \
-# # 删除软件包
-# rm -frv /app/pack/ && \
-# true
 
