@@ -33,6 +33,8 @@ set -e
 
 chmod +x /dockerBuildROOT/fridaAnlzAp/main/docker/*.sh
 
+/dockerBuildROOT/fridaAnlzAp/main/docker/git_config_set.sh
+
 #开发用，本地文件下载web服务
 # 物理机下才 启动 本地文件下载web服务
 $inDocker || {  { kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  ( cd /app/pack/ && python -m http.server 2111 & )  ; echo "booting_file_web_server";}
