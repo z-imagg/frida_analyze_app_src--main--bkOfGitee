@@ -173,7 +173,7 @@ ls -lh /
 
 # #endregion
 
-#   #region 结尾
+# #region 结尾
 cp -v /dockerBuildROOT/fridaAnlzAp/main/docker/.bashrc /root/.bashrc
 # #endregion
 
