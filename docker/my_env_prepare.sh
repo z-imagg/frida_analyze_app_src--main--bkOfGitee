@@ -100,7 +100,7 @@ NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1  1>/dev/null 2
 mkdir -p $RT/app/pack/ $RT/app/ 
 
 #下载安装包们
-RT=$RT bash dl_pack.sh
+RT=$RT bash /fridaAnlzAp/main/docker/dl_pack.sh
 
 #conda安装目录后 目录不能移动，因此才做的软链接。 TODO, 待验证
 ln -s $RT/app /app
@@ -165,7 +165,7 @@ neo4j start
 # #region 项目代码拉取
 
 #本地gitea服务器. 当文件系统是只读时，tee可能会写入了 但还是报错， 因此放入'子进程()'中 避免干扰此脚本
-( echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts )
+( echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts || true )
 
 #本项目fridaAnlzAp 代码拉取
 mkdir -p $RT/fridaAnlzAp/
