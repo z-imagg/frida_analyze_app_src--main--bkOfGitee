@@ -105,8 +105,8 @@ mkdir -p $RT/app/pack/ $RT/app/
 RT=$RT /fridaAnlzAp/main/docker/dl_pack.sh
 
 #conda安装目录后 目录不能移动，因此才做的软链接。 TODO, 待验证
-# ln -s $RT/app /app
-bash  $RT/app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $RT/app/Miniconda3-py310_22.11.1-1/
+ln -s $RT/app /app
+bash  $RT/app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-py310_22.11.1-1/
 
 ls $RT/app/pack/ $RT/app
 # #endregion
@@ -116,7 +116,7 @@ ls $RT/app/pack/ $RT/app
 # #region 配置包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
 #miniconda3
-source $RT/app/Miniconda3-py310_22.11.1-1/bin/activate
+source /app/Miniconda3-py310_22.11.1-1/bin/activate
 
 #jdk11 
 export JAVA_HOME=$RT/app/zulu11.70.15-ca-jdk11.0.22-linux_x64
@@ -209,5 +209,6 @@ ls -lh /
 
 
 
+unlink /app
 
 
