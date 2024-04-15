@@ -40,18 +40,15 @@ LocalFileWebSrv=http://172.17.0.1:2111
 
 
 F_dl_unpkg_sh=/tmp/download_unpack.sh
-wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/4fdeedd58c1f38478a88aeb2f556922728e99ded/download_unpack.sh
+wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/commit/5f0097fe4b7c5b45eb1da888acd0c32cc76f43eb/download_unpack.sh
 chmod +x $F_dl_unpkg_sh
 
 
-#miniconda3
-apt instal -y axel 
-Conda3_Home_4dockerbuild=$RT/Miniconda3-py310_22.11.1-1/
-Conda3_Url=$LocalFileWebSrv/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh   
-# Conda3_Url=https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh  
-axel --quiet --insecure  -n 8   --output=/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh   $Conda3_Url
-bash  /Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild 
+mkdir -p $RT/app/pack/ $RT/app/
 
+#Dockfile构建过程中需要的miniconda3 下载、安装、使用
+F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F ; unset F
+bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild 
 source  $Conda3_Home_4dockerbuild/bin/activate ;  #exit 0
 
 which python #/app/Miniconda3-py310_22.11.1-1/bin/python
