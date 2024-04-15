@@ -8,8 +8,10 @@
 #此脚本任何语句 退出代码不为正常值0 ，都会导致整个脚本退出
 set -e
 
+source /fridaAnlzAp/main/docker/local_domain.sh
+
 #添加本地gitea域名
-grep "giteaz" /etc/hosts ||  ( echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts || true )
+local_domain_set
 
 cd /fridaAnlzAp/
 /usr/bin/bash

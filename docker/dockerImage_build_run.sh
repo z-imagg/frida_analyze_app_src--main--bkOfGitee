@@ -8,22 +8,23 @@
 #此脚本任何语句 退出代码不为正常值0 ，都会导致整个脚本退出
 set -e
 
+source /fridaAnlzAp/main/docker/file_web_srv.sh
+source /fridaAnlzAp/main/docker/util.sh
+
 #去此脚本所在目录
 declare -r f=$(readlink -f ${BASH_SOURCE[0]})  ; declare -r d=$(dirname $f)
 cd $d
 
 chmod +x my_env_prepare.sh
 
-
-#下载安装包们
-{ kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}
-RT="/" bash  dl_pack.sh
+#本地文件下载web服务 停止 ; 从而 强迫 从真实web地址 下载安装包们
+kill_file_web_srv ;  RT="/" bash  dl_pack.sh
 
 declare -r errMsg6="无可执行文python，请手工安装python3或软链接python3为python,退出代码6"
 which python || {  echo "$errMsg6" && exit 6 ;}
-#开发用，本地文件下载web服务
-{ kill -9 $(ps auxf | grep python | grep 2111 | awk '{print $2}')  && sleep 1 ;}  ;  (cd /app/pack/ && python -m http.server 2111 & )
 
+#本地文件下载web服务 重启
+{  kill_file_web_srv  ;  boot_file_web_srv  ;}
 
 #构建基础镜像
 docker images -q  --filter "reference=base_ubuntu_22.04"  ||  docker build --progress=plain --no-cache  -f "/fridaAnlzAp/main/docker/base_ubuntu_22_Dockerfile" -t base_ubuntu_22.04:0.1 "/" 

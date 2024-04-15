@@ -5,11 +5,14 @@
 #【术语】 
 #【备注】   
 
+#去此脚本所在目录
+declare -r f=$(readlink -f ${BASH_SOURCE[0]})  ; declare -r d=$(dirname $f)
+cd $d
+
+source ./util.sh
 
 # #region cytoscape 运行在宿主机上
-rootFsType=$(findmnt -n -o FSTYPE /)
-#若根目录挂载的文件系统类型为overlay, 则当前极有可能在docker下
-inDocker=$( { [[ "$rootFsType" == "overlay" ]] && echo "true" ;} || echo "false"  )
+isInDocker # 返回变量为 inDocker
 
 
 
