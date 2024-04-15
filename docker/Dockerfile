@@ -8,10 +8,10 @@ WORKDIR /
 
 # 标明 目录含义:  dockerImage_build_run.sh  : 'docker build  ... -t frida_anlz_ap:0.1 "/左"  '     ，  'COPY /左  /右'   
 #         注意 两者 的 左 是同一个东西
-COPY /fridaAnlzAp/main/docker /fridaAnlzAp/main/docker
+COPY /fridaAnlzAp/main/docker /dockerBuildROOT/fridaAnlzAp/main/docker
 
-RUN --mount=type=cache,target=/dockerBuildROOT \
-/fridaAnlzAp/main/docker/my_env_prepare.sh && \
+RUN   \
+/dockerBuildROOT/fridaAnlzAp/main/docker/my_env_prepare.sh && \
 # 标明 目录含义:  'cp /左 /右'  ,   'RUN ... target=/左'  
 #         注意 两者 的 左 是同一个东西
 # 保存 my_env_prepare.sh 执行结果目录

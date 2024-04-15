@@ -31,7 +31,7 @@ set -e
 
 # #region 开发体
 
-chmod +x /fridaAnlzAp/main/docker/*.sh
+chmod +x /dockerBuildROOT/fridaAnlzAp/main/docker/*.sh
 
 #开发用，本地文件下载web服务
 # 物理机下才 启动 本地文件下载web服务
@@ -43,8 +43,7 @@ LocalFileWebSrv=http://172.17.0.1:2111
 
 
 # 若在docker下 根目录为 /dockerBuildROOT/ 否则 根目录为 /
-{ $inDocker && { RT=/dockerBuildROOT  ;} ;} || RT="/"
-#&& mkdir -p $RT
+#&& mkdir -p 
 
 
 F_dl_unpkg_sh=/tmp/download_unpack.sh
@@ -53,14 +52,14 @@ wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simpli
 chmod +x $F_dl_unpkg_sh
 
 
-mkdir -p $RT/app/pack/ $RT/app/
+mkdir -p /app/pack/ /app/
 
 #Dockfile构建过程中需要的miniconda3 下载、安装、使用
-Conda3_Home_4dockerbuild=$RT/Miniconda3-py310_22.11.1-1/
+Conda3_Home_4dockerbuild=/Miniconda3-py310_22.11.1-1/
 F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F  ; unset F
 bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild
 # exit 1
-# ls / /tmp $RT $Conda3_Home_4dockerbuild
+# ls / /tmp  $Conda3_Home_4dockerbuild
 source  $Conda3_Home_4dockerbuild/bin/activate ;  #exit 0
 
 which python #/app/Miniconda3-py310_22.11.1-1/bin/python
@@ -83,10 +82,10 @@ echo "welcome to my_env_prepare"
 
 # #region nvm克隆、nvm函数导入、nvm安装nodejs-v18.19.1
 #nvm克隆
-git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  $RT/app/nvm
+git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/nvm
 
 #nvm函数导入
-source $RT/app/nvm/nvm.sh 1>/dev/null 2>/dev/null
+source /app/nvm/nvm.sh 1>/dev/null 2>/dev/null
 
 #nvm安装nodejs-v18.19.1
 #  v18.19.1 是 nodejs  LTS v18 系列 中 最后一个版本
@@ -99,21 +98,19 @@ NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install v18.19.1  1>/dev/null 2
 
 # #region 下载包 、 解压包 , miniconda3 、 neo4j-4.4.32 、 jdk11  、 neo4j的apoc插件
 
-mkdir -p $RT/app/pack/ $RT/app/ 
+mkdir -p /app/pack/ /app/ 
 
 #下载安装包们
-RT=$RT /fridaAnlzAp/main/docker/dl_pack.sh
+/dockerBuildROOT/fridaAnlzAp/main/docker/dl_pack.sh
 
 #miniconda的安装目录和使用目录要保持一致，否则无法使用
-app_ln=/app #末尾不能有斜线
-conda3_inst_dir=$app_ln/Miniconda3-py310_22.11.1-1/
+conda3_inst_dir=/app/Miniconda3-py310_22.11.1-1/
 # 用于欺骗conda安装时的软链接/app
-ln -s $RT/app $app_ln
-# ln -s $RT/app /app
-bash  $RT/app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $conda3_inst_dir
+# ln -s /app /app
+bash  /app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $conda3_inst_dir
 #                                                                -p /app/Miniconda3-py310_22.11.1-1/
 
-ls $RT/app/pack/ $RT/app
+ls /app/pack/ /app
 # #endregion
 
 # #endregion
@@ -125,10 +122,10 @@ ls $RT/app/pack/ $RT/app
 source /app/Miniconda3-py310_22.11.1-1/bin/activate
 
 #jdk11 
-export JAVA_HOME=$RT/app/zulu11.70.15-ca-jdk11.0.22-linux_x64
+export JAVA_HOME=/app/zulu11.70.15-ca-jdk11.0.22-linux_x64
 
 #neo4j-4.4.32
-export NEO4J_HOME=$RT/app/neo4j-community-4.4.32
+export NEO4J_HOME=/app/neo4j-community-4.4.32
 
 export PATH=$PATH:$NEO4J_HOME/bin:$JAVA_HOME/bin
 
@@ -136,7 +133,7 @@ export PATH=$PATH:$NEO4J_HOME/bin:$JAVA_HOME/bin
 neo4j --help
 # console start   stop    restart status  version help 
 neo4j version #neo4j 4.4.32
-F_cfg=$RT/app/neo4j-community-4.4.32/conf/neo4j.conf
+F_cfg=/app/neo4j-community-4.4.32/conf/neo4j.conf
 grep dbms.default_listen_address $F_cfg
 grep dbms.memory $F_cfg
 cp -v $F_cfg "${F_cfg}_$(date +%s)"
@@ -176,12 +173,13 @@ neo4j start
 ( echo "10.0.4.9 westgw giteaz g" | tee -a /etc/hosts || true )
 
 #本项目fridaAnlzAp 代码拉取
-mkdir -p $RT/fridaAnlzAp/
-git clone http://giteaz:3000/frida_analyze_app_src/main.git  $RT/fridaAnlzAp/main
+mkdir -p /fridaAnlzAp/
+git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
+chmod +x /fridaAnlzAp/main/docker/*.sh
 #递归拉取所有子模块
-( cd $RT/fridaAnlzAp/main &&  git submodule    update --recursive --init )
+( cd /fridaAnlzAp/main &&  git submodule    update --recursive --init )
 
-cd $RT/fridaAnlzAp/
+cd /fridaAnlzAp/
 #删除软链接
 find  .  -maxdepth 1 -type l | xargs -I% unlink %
 #直接子模块 或 app 链接到 上层目录
@@ -201,26 +199,25 @@ ln -s ./main/app/torch-cpp  ./torch-cpp
 # #region 项目依赖安装
 #{python依赖安装
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-pip install -r $RT/fridaAnlzAp/cmd-wrap/requirements.txt
-pip install -r $RT/fridaAnlzAp/frida_js/requirements.txt
-pip install -r $RT/fridaAnlzAp/analyze_by_graph/requirements.txt
+pip install -r /fridaAnlzAp/cmd-wrap/requirements.txt
+pip install -r /fridaAnlzAp/frida_js/requirements.txt
+pip install -r /fridaAnlzAp/analyze_by_graph/requirements.txt
 #}
 
 ls -lh /
 #{nodejs依赖安装
-# (cd $RT/fridaAnlzAp/frida_js/ && npm install )
+# (cd /fridaAnlzAp/frida_js/ && npm install )
 #}
 
 # #endregion
 
 
 #取消用于欺骗conda安装时的软链接/app
-unlink $app_ln
 
 #收尾，复制结果文件到 /app, 删除安装包/app/pack/*
-cp -r /dockerBuildROOT/app / && \
-cp -r /dockerBuildROOT/fridaAnlzAp / && \
-# 删除软件包
-rm -frv /app/pack/ && \
-true
+# cp -r /dockerBuildROOT/app / && \
+# cp -r /dockerBuildROOT/fridaAnlzAp / && \
+# # 删除软件包
+# rm -frv /app/pack/ && \
+# true
 
