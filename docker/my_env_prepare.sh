@@ -41,7 +41,7 @@ wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simpli
 chmod +x $F_dl_unpkg_sh
 
 #Dockfile构建过程中需要的miniconda3 下载、安装、使用
-Conda3_Home_4dockerbuild=/Miniconda3-py310_22.11.1-1/
+Conda3_Home_4dockerbuild=/dockerBuildROOT/Miniconda3-py310_22.11.1-1/
 F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F  ; unset F
 bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild
 
@@ -121,60 +121,18 @@ web端修改密码, 输入命令 ':server change-password'
 
 #   #endregion
 
-# #endregion
 
-# #region 项目
-
-#   #region 项目代码拉取
-
-#本地gitea服务器. 当文件系统是只读时，tee可能会写入了 但还是报错， 因此放入'子进程()'中 避免干扰此脚本
-local_domain_set
-
-#本项目fridaAnlzAp 代码拉取
-mkdir -p /fridaAnlzAp/
-git clone http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
-#git项目忽略文件权限变动
-( cd /fridaAnlzAp/main ; git_ignore_filemode ;)
-chmod +x /fridaAnlzAp/main/docker/*.sh
-#递归拉取所有子模块
-( cd /fridaAnlzAp/main &&  git submodule    update --recursive --init )
-
-cd /fridaAnlzAp/
-#删除软链接
-find  .  -maxdepth 1 -type l | xargs -I% unlink %
-#直接子模块 或 app 链接到 上层目录
-# /fridaAnlzAp/x --->  /fridaAnlzAp/main/x
-ln -s  ./main/analyze_by_graph  ./analyze_by_graph
-ln -s ./main/cmd-wrap  ./cmd-wrap
-ln -s ./main/frida_js   ./frida_js
-ln -s  ./main/github-gitee-GITEA   ./github-gitee-GITEA
-# /fridaAnlzAp/x --->  /fridaAnlzAp/main/app/x
-ln -s ./main/app/cgsecurity--testdisk   ./cgsecurity--testdisk
-ln -s ./main/app/torch-cpp  ./torch-cpp
-
-
-#   #endregion
-
-
-#   #region 项目依赖安装
-#{python依赖安装
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-pip install -r /fridaAnlzAp/cmd-wrap/requirements.txt
-pip install -r /fridaAnlzAp/frida_js/requirements.txt
-pip install -r /fridaAnlzAp/analyze_by_graph/requirements.txt
-#}
-
-ls -lh /
 #{nodejs依赖安装
 # (cd /fridaAnlzAp/frida_js/ && npm install )
 #}
 
-#   #endregion
 
 # #endregion
 
+
 # #region 结尾
 cp -v /dockerBuildROOT/fridaAnlzAp/main/docker/.bashrc /root/.bashrc
+rm -fr $Conda3_Home_4dockerbuild
 # #endregion
 
 
