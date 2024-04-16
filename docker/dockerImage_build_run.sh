@@ -48,7 +48,7 @@ imageIdLs=$(docker images -q  --filter "reference=frida_anlz_ap")
 docker images -q  --filter "reference=frida_anlz_ap" |xargs -I%  docker image rm %
 #重建镜像
 # --pull  --rm
-docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fridaAnlzAp/main/docker/Dockerfile" -t frida_anlz_ap:0.1_prv "/" 
+docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fridaAnlzAp/main/docker/fridaAnlzAp.Dockerfile.sh" -t frida_anlz_ap:0.1_prv "/" 
 
 #启动 frida_anlz_ap镜像
 #  --rm 
