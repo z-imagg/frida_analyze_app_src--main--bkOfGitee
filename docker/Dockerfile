@@ -5,7 +5,7 @@ FROM base_ubuntu_22.04:0.1 as base
 
 WORKDIR /
 
-# 标明 目录含义:  dockerImage_build_run.sh  : 'docker build  ... -t frida_anlz_ap:0.1_pub "/左"  '     ，  'COPY /左  /右'   
+# 标明 目录含义:  dockerImage_build_run.sh  : 'docker build  ... -t frida_anlz_ap:0.1_prv "/左"  '     ，  'COPY /左  /右'   
 #         注意 两者 的 左 是同一个东西
 COPY /fridaAnlzAp/main/docker /dockerBuildROOT/fridaAnlzAp/main/docker
 

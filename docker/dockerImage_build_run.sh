@@ -30,7 +30,7 @@ which python || {  echo "$errMsg6" && exit 6 ;}
 docker images -q  --filter "reference=base_ubuntu_22.04"  ||  docker build --progress=plain --no-cache  -f "/fridaAnlzAp/main/docker/base_ubuntu_22_Dockerfile" -t base_ubuntu_22.04:0.1 "/" 
 
 #删除现有 frida_anlz_ap镜像
-instanceIdLs=$(docker ps -a  -q --filter "ancestor=frida_anlz_ap:0.1_pub")
+instanceIdLs=$(docker ps -a  -q --filter "ancestor=frida_anlz_ap:0.1_prv")
 [[ "x" == "x$instanceIdLs" ]] || { docker stop $instanceIdLs && docker rm $instanceIdLs ;}
 
 #删除现有 frida_anlz_ap实例
@@ -48,7 +48,7 @@ imageIdLs=$(docker images -q  --filter "reference=frida_anlz_ap")
 docker images -q  --filter "reference=frida_anlz_ap" |xargs -I%  docker image rm %
 #重建镜像
 # --pull  --rm
-docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fridaAnlzAp/main/docker/Dockerfile" -t frida_anlz_ap:0.1_pub "/" 
+docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fridaAnlzAp/main/docker/Dockerfile" -t frida_anlz_ap:0.1_prv "/" 
 
 #启动 frida_anlz_ap镜像
 #  --rm 
@@ -56,5 +56,5 @@ docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fri
 # -v  /tmp/app/:/app/ 
 #-v  /tmp/fridaAnlzAp:/fridaAnlzAp
 # docker ps  -q  --filter "label=frida_anlz_ap"
-docker run -it  frida_anlz_ap:0.1_pub
+docker run -it  frida_anlz_ap:0.1_prv
 
