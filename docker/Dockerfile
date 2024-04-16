@@ -16,6 +16,8 @@ RUN   \
 
 RUN ls /app/
 
+COPY /fridaAnlzAp/main/docker /fridaAnlzAp/main/docker
+
 LABEL maintainer="prgrmz07 <prgrmz07@163.com>"
 LABEL version="0.1"
 LABEL description="fridaAnlzAp docker 环境"
