@@ -48,3 +48,7 @@ b.  放弃 基于ncurse交互的testdisk, 尝试 图形化界面 'testdisk/qphot
 
 
 其余可看文档， [frids_js/f8d80/README.md](http://giteaz:3000/frida_analyze_app_src/frida_js/src/commit/f8d80c10899042cd7d660d93dc5c2b107db01d2f/README.md)， 
+
+
+
+#### 分析 frida_agent.so大致流程
