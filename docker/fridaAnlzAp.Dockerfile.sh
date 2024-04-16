@@ -4,15 +4,15 @@
 #【术语】 #dk# == #docker# == 仅docker有,  #sh# == #bash# == 仅bash有, #dksh# == #docker_shell# == docker有、bash有 
 #【备注】
 
-#dk# FROM base_ubuntu_22.04:0.1 as base
+FROM base_ubuntu_22.04:0.1 as base
 
 
 
-#dksh# WORKDIR /
+WORKDIR /
 
-#dksh# COPY /fridaAnlzAp/main/docker /fridaAnlzAp/main/docker
+COPY /fridaAnlzAp/main/docker /fridaAnlzAp/main/docker
 
-#dksh# RUN \
+RUN \
 bash -c """ \
 #此脚本任何语句 退出代码不为正常值0 ，都会导致整个脚本退出
 set -e && \
@@ -25,8 +25,9 @@ source /fridaAnlzAp/main/docker/local_domain.sh && \
 #判定当前 是在docker实例中 还是 在 宿主物理机 中 
 # 返回变量为 inDocker
 isInDocker && \
-ls /app/ / && find /dockerBuildROOT -type f  && 、
+ls /app/ / && find /dockerBuildROOT -type f  && \
 true \
+|| true \
 """
 
 
