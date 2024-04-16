@@ -1,29 +1,5 @@
 
 
-
-
-
-#   #region 开发体
-
-
-#开发用，本地文件下载web服务
-# 物理机下才 启动 本地文件下载web服务
-$inDocker || {  kill_file_web_srv  ;  boot_file_web_srv  ;}
-#本地文件下载web服务 url主要部分 ， 172.17.0.1 是 物理真实宿主机 ip
-LocalFileWebSrv=http://172.17.0.1:2111
-
-#   #endregion
-
-F_dl_unpkg_sh=/tmp/download_unpack.sh
-wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/branch/app_spy/dev/download_unpack.sh
-# http://giteaz:3000/bal/bash-simplify/raw/commit/83e2651a5c5dc95ebe2a1331c410742617680e2b/download_unpack.sh
-chmod +x $F_dl_unpkg_sh
-
-#Dockfile构建过程中需要的miniconda3 下载、安装、使用
-Conda3_Home_4dockerbuild=/dockerBuildROOT/Miniconda3-py310_22.11.1-1/
-F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F  ; unset F
-bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild
-
 # ls / /tmp  $Conda3_Home_4dockerbuild ; exit 1  #提前结束，常用来 调试Dockerfile用
 
 source  $Conda3_Home_4dockerbuild/bin/activate 
