@@ -19,7 +19,7 @@
 #公共依赖
 source /fridaAnlzAp/main/docker/common_all.sh && \
 # #Dockfile构建过程中需要的miniconda3 下载、安装、使用
-# Conda3_Home_4dockerbuild=/dockerBuildROOT/Miniconda3-py310_22.11.1-1/  && \
+# Conda3_Home_4dockerbuild=/Miniconda3-py310_22.11.1-1/  && \
 # F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F  ; unset F && \
 # bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild && \
 true ;} \
@@ -33,7 +33,7 @@ true ;} \
 source /fridaAnlzAp/main/docker/common_all.sh && \
 # source  $Conda3_Home_4dockerbuild/bin/activate && which python && \
 #下载安装包们
-/dockerBuildROOT/fridaAnlzAp/main/docker/dl_pack.sh && \
+/fridaAnlzAp/main/docker/dl_pack.sh && \
 #miniconda3
 bash  /app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-py310_22.11.1-1/ && \
 source /app/Miniconda3-py310_22.11.1-1/bin/activate && which python && \
@@ -73,7 +73,7 @@ true ;} \
 { \
 #公共依赖
 source /fridaAnlzAp/main/docker/common_all.sh && \
-cp -v /dockerBuildROOT/fridaAnlzAp/main/docker/.bashrc /root/.bashrc && \
+cp -v /fridaAnlzAp/main/docker/.bashrc /root/.bashrc && \
 rm -fr $Conda3_Home_4dockerbuild && \
 ls /app/ /  && \
 true ;} \
@@ -90,4 +90,4 @@ true ;} \
 
 
 
-#dk# ENTRYPOINT [ "/dockerBuildROOT/fridaAnlzAp/main/docker/docker_entry.sh" ]
+#dk# ENTRYPOINT [ "/fridaAnlzAp/main/docker/docker_entry.sh" ]
