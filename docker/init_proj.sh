@@ -26,7 +26,8 @@ source /fridaAnlzAp/main/docker/local_domain.sh
 local_domain_set
 
 #本项目fridaAnlzAp 代码拉取
-mkdir -p /fridaAnlzAp/
+#  删除 构建Dockerfile时 用的目录 /fridaAnlzAp/main/docker
+mv /fridaAnlzAp /tmp_fridaAnlzAp ; mkdir -p /fridaAnlzAp/
 git clone -b tag/fridaAnlzAp/docker_hub http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
 #git项目忽略文件权限变动
 ( cd /fridaAnlzAp/main ; git_ignore_filemode ;)
