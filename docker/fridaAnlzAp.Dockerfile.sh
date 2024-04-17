@@ -3,7 +3,6 @@
 #【依赖】   
 #【术语】 #dk# == #docker# == 仅docker有,  #sh# == #bash# == 仅bash有, #dksh# == #docker_shell# == docker有、bash有 
 #【备注】 在bash中 冒号':' 表示 空指令
-#【备注】 sed "s/#dk# //g"  "s/#dk# '''//g"   "s/#dksh# COPY/cp/g" docker/fridaAnlzAp.Dockerfile.sh | tee docker/fridaAnlzAp.Dockerfile
 
 #dk# FROM base_ubuntu_22.04:0.1 as base
 
