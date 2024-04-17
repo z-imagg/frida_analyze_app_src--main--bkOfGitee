@@ -5,7 +5,7 @@
 apt-get update
 
 ##RUN \
-apt-get install -y axel wget curl  net-tools git  iputils-ping python3 python3-urllib3
+apt-get install -y axel wget curl  net-tools git  iputils-ping python3 python3-urllib3 sudo
 
 ##RUN \
 mkdir -p /app/nvm && \
