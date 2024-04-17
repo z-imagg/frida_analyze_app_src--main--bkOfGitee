@@ -8,9 +8,9 @@
 
 
 
-#dksh# WORKDIR /
+#dk# WORKDIR /
 
-#dksh# COPY /fridaAnlzAp/main/docker /fridaAnlzAp/main/docker
+#dk# COPY /fridaAnlzAp/main/docker /fridaAnlzAp/main/docker
 
 
 

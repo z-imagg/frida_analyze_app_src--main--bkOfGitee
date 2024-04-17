@@ -23,6 +23,6 @@ dockerF=$2
 declare -r errTxt_NoShFile="usage syntax: $shF not existed,  exit code  $exitCode_errNoShFile"
 [[ -f $shF ]] || { echo $errTxt_NoShFile && exit $exitCode_errNoShFile ;}
 
-sed -e "s/#dk# //g"  -e  "s/#dk# '''//g"  -e   "s/#dksh# COPY/cp/g"  -e   "s/#dksh# WORKDIR/cd/g"  $shF | tee $dockerF 1>/dev/null
+sed -e "s/#dk# //g"  -e  "s/#dk# '''//g"    $shF | tee $dockerF 1>/dev/null
 
 echo $dockerF
