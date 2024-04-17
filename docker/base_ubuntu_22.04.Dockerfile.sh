@@ -7,8 +7,8 @@
 
 #dk# RUN bash -c ''' \
 { \
-apt-get update && \
-apt-get install -y axel wget curl  net-tools git  iputils-ping python3 python3-urllib3 sudo && \
+sudo apt-get update && \
+sudo apt-get install -y axel wget curl  net-tools git  iputils-ping python3 python3-urllib3 sudo && \
 true ;} \
 || false #dk# '''
 
