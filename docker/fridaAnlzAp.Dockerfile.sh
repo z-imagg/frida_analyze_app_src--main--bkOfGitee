@@ -23,7 +23,7 @@ source /fridaAnlzAp/main/docker/common_all.sh && \
 # F="Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" ; $F_dl_unpkg_sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$F e01420f221a7c4c6cde57d8ae61d24b5  $F /tmp/ /not_unpack  $LocalFileWebSrv/$F  ; unset F && \
 # bash  /tmp/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p $Conda3_Home_4dockerbuild && \
 true ;} \
-|| : #dk# '''
+|| false #dk# '''
 
 
 ## 下载包 、 解压包 , miniconda3  
@@ -38,7 +38,7 @@ source /fridaAnlzAp/main/docker/common_all.sh && \
 bash  /app/pack/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh -b -p /app/Miniconda3-py310_22.11.1-1/ && \
 source /app/Miniconda3-py310_22.11.1-1/bin/activate && which python && \
 true ;} \
-|| : #dk# '''
+|| false #dk# '''
 
 
 ##   neo4j-4.4.32 尝试启动
@@ -65,7 +65,7 @@ sed -i  "s/#dbms.default_listen_address=0.0.0.0/dbms.default_listen_address=0.0.
 sed -i  's/#dbms.threads.worker_count=/dbms.threads.worker_count=4/'   $F_cfg && \
 echo $msg1 && \
 true ;} \
-|| : #dk# '''
+|| false #dk# '''
 
 
 #结尾
@@ -77,7 +77,7 @@ cp -v /dockerBuildROOT/fridaAnlzAp/main/docker/.bashrc /root/.bashrc && \
 rm -fr $Conda3_Home_4dockerbuild && \
 ls /app/ /  && \
 true ;} \
-|| : #dk# '''
+|| false #dk# '''
 
 
 
