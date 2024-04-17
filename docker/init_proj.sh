@@ -55,7 +55,8 @@ ln -s ./main/app/torch-cpp  ./torch-cpp
 #   #region 项目依赖安装
 #{python依赖安装
 source /app/Miniconda3-py310_22.11.1-1/bin/activate && which python
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+# pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
 pip install -r /fridaAnlzAp/cmd-wrap/requirements.txt
 pip install -r /fridaAnlzAp/frida_js/requirements.txt
 pip install -r /fridaAnlzAp/analyze_by_graph/requirements.txt
