@@ -57,4 +57,4 @@ docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fri
 #-v  /tmp/fridaAnlzAp:/fridaAnlzAp
 # docker ps  -q  --filter "label=frida_anlz_ap"
 docker run -it  frida_anlz_ap:0.1_prv
-
+#docker run --name fap  -itd frida_anlz_ap:0.1_prv
