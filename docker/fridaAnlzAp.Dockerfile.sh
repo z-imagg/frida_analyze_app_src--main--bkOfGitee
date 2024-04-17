@@ -71,7 +71,8 @@ true ;} \
 source /fridaAnlzAp/main/docker/common_all.sh && \
 cp -v /fridaAnlzAp/main/docker/.bashrc /root/.bashrc && \
 rm -fr $Conda3_Home_4dockerbuild && \
-ls /app/ /fridaAnlzAp  && \
+mv /fridaAnlzAp /dockerBuildTime_fridaAnlzAp && \
+ls /app/ /dockerBuildTime_fridaAnlzAp  && \
 true ;} \
 || false #dk# '''
 
