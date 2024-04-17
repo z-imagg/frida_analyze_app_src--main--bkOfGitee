@@ -70,7 +70,7 @@ true ;} \
 #公共依赖
 source /fridaAnlzAp/main/docker/common_all.sh && \
 cp -v /fridaAnlzAp/main/docker/.bashrc ~/.bashrc && \
-rm -frv /app/pack && \
+# rm -frv /app/pack && \
 ls /app/ /fridaAnlzAp  && \
 true ;} \
 || false #dk# '''
