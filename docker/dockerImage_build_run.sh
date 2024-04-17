@@ -18,8 +18,6 @@ source /fridaAnlzAp/main/docker/util.sh
 declare -r f=$(readlink -f ${BASH_SOURCE[0]})  ; declare -r d=$(dirname $f)
 cd $d
 
-chmod +x my_env_prepare.sh
-
 #本地文件下载web服务 停止 ; 从而 强迫 从真实web地址 下载安装包们
 kill_file_web_srv ;  RT="/" bash  dl_pack.sh
 
