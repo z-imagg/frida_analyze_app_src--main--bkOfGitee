@@ -36,3 +36,11 @@ F_dl_unpkg_sh=/tmp/download_unpack.sh
 wget --quiet --output-document=$F_dl_unpkg_sh http://giteaz:3000/bal/bash-simplify/raw/branch/app_spy/dev/download_unpack.sh
 # http://giteaz:3000/bal/bash-simplify/raw/commit/83e2651a5c5dc95ebe2a1331c410742617680e2b/download_unpack.sh
 chmod +x $F_dl_unpkg_sh
+
+
+msg1="""
+neo4j重启 : neo4j restart ; neo4j状态 : neo4j status; 启动neo4j: neo4j start
+浏览器打开 neo4j的web控制端 http://ip:7474/browser/
+neo4j-community-4.4.32默认用户名密码 neo4j/neo4j
+web端修改密码, 输入命令 ':server change-password'
+"""

@@ -9,6 +9,7 @@ apt-get install -y axel wget curl  net-tools git  iputils-ping python3 python3-u
 
 ##RUN \
 mkdir -p /app/nvm && \
+#nvm克隆
 git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/nvm && \
 #nvm函数导入
 source /app/nvm/nvm.sh 1>/dev/null 2>/dev/null && \
