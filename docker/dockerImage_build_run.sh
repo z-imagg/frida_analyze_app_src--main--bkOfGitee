@@ -27,8 +27,8 @@ which python || {  echo "$errMsg6" && exit 6 ;}
 {  kill_file_web_srv  ;  boot_file_web_srv  ;}
 
 #构建基础镜像 
-bash   convert_sh_to_Dockerfile.sh base_ubuntu_22.Dockerfile.sh base_ubuntu_22.Dockerfile
-[[ $(docker images -q  --filter "reference=base_ubuntu_22.04" | wc -l ) -gt 0 ]] ||  docker build --progress=plain --no-cache  -f "/fridaAnlzAp/main/docker/base_ubuntu_22.Dockerfile" -t base_ubuntu_22.04:0.1 "/" 
+bash   convert_sh_to_Dockerfile.sh base_ubuntu_22.04.Dockerfile.sh base_ubuntu_22.04.Dockerfile
+[[ $(docker images -q  --filter "reference=base_ubuntu_22.04.04" | wc -l ) -gt 0 ]] ||  docker build --progress=plain --no-cache  -f "/fridaAnlzAp/main/docker/base_ubuntu_22.04.Dockerfile" -t base_ubuntu_22.04.04:0.1 "/" 
 
 #删除现有 frida_anlz_ap镜像
 instanceIdLs=$(docker ps -a  -q --filter "ancestor=frida_anlz_ap:0.1_prv")
