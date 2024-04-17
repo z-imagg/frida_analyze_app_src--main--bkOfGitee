@@ -15,8 +15,8 @@ true ;} \
 #dk# RUN bash -c ''' \
 { \
 mkdir -p /app/nvm && \
-#nvm克隆
-git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/nvm && \
+#nvm克隆. TODO 有隐患， 应改为 在下一行写 切换到 远程标签v0.39.7 ，但我始终不知道怎么写这句命令。
+{ [[ -f /app/nvm/.git/config ]] || git clone --branch=v0.39.7   https://gitee.com/repok/nvm-sh--nvm.git  /app/nvm ;} && \
 #nvm函数导入
 source /app/nvm/nvm.sh 1>/dev/null 2>/dev/null && \
 #nvm安装nodejs-v18.19.1 ;  v18.19.1 是 nodejs  LTS v18 系列 中 最后一个版本
