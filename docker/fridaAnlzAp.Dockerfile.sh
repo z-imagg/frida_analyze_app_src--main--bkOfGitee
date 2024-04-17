@@ -70,7 +70,7 @@ true ;} \
 #公共依赖
 source /fridaAnlzAp/main/docker/common_all.sh && \
 cp -v /fridaAnlzAp/main/docker/.bashrc /root/.bashrc && \
-rm -fr $Conda3_Home_4dockerbuild && \
+rm -frv /app/pack && \
 ls /app/ /fridaAnlzAp  && \
 true ;} \
 || false #dk# '''
