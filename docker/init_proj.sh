@@ -11,10 +11,10 @@
 #此脚本任何语句 退出代码不为正常值0 ，都会导致整个脚本退出
 set -e
 
-chmod +x /dockerBuildROOT/fridaAnlzAp/main/docker/*.sh
+chmod +x /fridaAnlzAp/main/docker/*.sh
 
-source /dockerBuildROOT/fridaAnlzAp/main/docker/util.sh
-source /dockerBuildROOT/fridaAnlzAp/main/docker/local_domain.sh
+source /fridaAnlzAp/main/docker/util.sh
+source /fridaAnlzAp/main/docker/local_domain.sh
 
 
 
