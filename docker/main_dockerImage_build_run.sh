@@ -57,5 +57,5 @@ docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fri
 #启动 frida_anlz_ap镜像
 # 开发时用的一些选项 ：   --rm  、  -v hostDir:dirInDocker  、  -v  /tmp/app/:/app/ 、  -v  /tmp/fridaAnlzAp:/fridaAnlzAp
 # docker ps  -q  --filter "label=frida_anlz_ap"
-docker run --name frida_anlz_ap  -itd frida_anlz_ap:0.1_prv
+docker run --name frida_anlz_ap --hostname faa_dk -itd frida_anlz_ap:0.1_prv
 docker exec -it frida_anlz_ap  bash
