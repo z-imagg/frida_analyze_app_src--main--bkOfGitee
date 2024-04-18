@@ -11,10 +11,10 @@
 #此脚本任何语句 退出代码不为正常值0 ，都会导致整个脚本退出
 set -e
 
-chmod +x /dockerBuildROOT/fridaAnlzAp/main/docker/*.sh
+chmod +x /fridaAnlzAp/main/docker/*.sh
 
-source /dockerBuildROOT/fridaAnlzAp/main/docker/util.sh
-source /dockerBuildROOT/fridaAnlzAp/main/docker/local_domain.sh
+source /fridaAnlzAp/main/docker/util.sh
+source /fridaAnlzAp/main/docker/local_domain.sh
 
 
 
@@ -26,7 +26,8 @@ source /dockerBuildROOT/fridaAnlzAp/main/docker/local_domain.sh
 local_domain_set
 
 #本项目fridaAnlzAp 代码拉取
-mkdir -p /fridaAnlzAp/
+#  删除 构建Dockerfile时 用的目录 /fridaAnlzAp/main/docker
+mv /fridaAnlzAp /tmp_fridaAnlzAp ; mkdir -p /fridaAnlzAp/
 git clone -b tag/fridaAnlzAp/docker_hub http://giteaz:3000/frida_analyze_app_src/main.git  /fridaAnlzAp/main
 #git项目忽略文件权限变动
 ( cd /fridaAnlzAp/main ; git_ignore_filemode ;)
@@ -53,7 +54,9 @@ ln -s ./main/app/torch-cpp  ./torch-cpp
 
 #   #region 项目依赖安装
 #{python依赖安装
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+source /app/Miniconda3-py310_22.11.1-1/bin/activate && which python
+# pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
 pip install -r /fridaAnlzAp/cmd-wrap/requirements.txt
 pip install -r /fridaAnlzAp/frida_js/requirements.txt
 pip install -r /fridaAnlzAp/analyze_by_graph/requirements.txt
