@@ -16,3 +16,6 @@
 [submodule "app/torch-cpp"]
 	path = app/torch-cpp
 	url = http://giteaz:3000/frida_analyze_app_src/torch-cpp.git
+[submodule "app/qemu-home/linux-0.11"]
+	path = app/qemu-home/linux-0.11
+	url = https://gitee.com/repok/linux-0.11_yuan-xy__ctk.git
