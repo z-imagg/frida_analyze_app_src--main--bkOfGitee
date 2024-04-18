@@ -62,7 +62,7 @@ b.  放弃 基于ncurse交互的testdisk, 尝试 图形化界面 'testdisk/qphot
 
 1. 无
 2. 编译qemu,  http://giteaz:3000/bal/cmd-wrap/src/branch/fridaAnlzAp/app/qemu/build_qemu.md
-3.  编译qemu程中拦截编译命令修改调试信息级别,，```-O2 -g``` --> ```-O1 -g1```【[cmd-wrap/build_qemu.md](http://giteaz:3000/bal/cmd-wrap/src/branch/fridaAnlzAp/app/qemu/build_qemu.md)】；
+3.  TODO 编译qemu程中拦截编译命令修改调试信息级别,，```-O2 -g``` --> ```-O1 -g1```【[cmd-wrap/build_qemu.md](http://giteaz:3000/bal/cmd-wrap/src/branch/fridaAnlzAp/app/qemu/build_qemu.md)】；
 4.  frida如何拦截到qemu源码中目标操作系统linux内核中的call指令
 5. TODO, frida_js生成 函数进出日志、进出时刻点日志：[frida_js](http://giteaz:3000/frida_analyze_app_src/frida_js.git)
 6.  TODO, 日志最终载入neo4j进行分析：[analyze_by_graph](http://giteaz:3000/frida_analyze_app_src/analyze_by_graph.git)
