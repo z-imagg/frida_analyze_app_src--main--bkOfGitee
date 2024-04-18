@@ -68,4 +68,7 @@ b.  放弃 基于ncurse交互的testdisk, 尝试 图形化界面 'testdisk/qphot
 6.  TODO, 日志最终载入neo4j进行分析：[analyze_by_graph](http://giteaz:3000/frida_analyze_app_src/analyze_by_graph.git)
 
 
+放弃linux-0.11,  http://giteaz:3000/bal/cmd-wrap/src/branch/fridaAnlzAp/app/qemu/build_qemu/drop__linux-0.11.md
+
+正在编译linux4,  http://giteaz:3000/bal/cmd-wrap/src/branch/fridaAnlzAp/app/qemu/build_qemu/linux4.md
 
