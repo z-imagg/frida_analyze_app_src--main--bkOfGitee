@@ -55,10 +55,7 @@ bash   convert_sh_to_Dockerfile.sh fridaAnlzAp.Dockerfile.sh fridaAnlzAp.Dockerf
 docker build --progress=plain --add-host=giteaz:10.0.4.9    --no-cache  -f "/fridaAnlzAp/main/docker/fridaAnlzAp.Dockerfile" -t frida_anlz_ap:0.1_prv "/" 
 
 #启动 frida_anlz_ap镜像
-#  --rm 
-#  -v hostDir:dirInDocker
-# -v  /tmp/app/:/app/ 
-#-v  /tmp/fridaAnlzAp:/fridaAnlzAp
+# 开发时用的一些选项 ：   --rm  、  -v hostDir:dirInDocker  、  -v  /tmp/app/:/app/ 、  -v  /tmp/fridaAnlzAp:/fridaAnlzAp
 # docker ps  -q  --filter "label=frida_anlz_ap"
-docker run --name frida_anlz_ap  -it frida_anlz_ap:0.1_prv
-#docker run --name fap  -itd frida_anlz_ap:0.1_prv
+docker run --name frida_anlz_ap  -itd frida_anlz_ap:0.1_prv
+docker exec -it frida_anlz_ap  bash
