@@ -19,3 +19,6 @@
 [submodule "app/qemu-home/linux-0.11"]
 	path = app/qemu-home/linux-0.11
 	url = https://gitee.com/repok/linux-0.11_yuan-xy__ctk.git
+[submodule "app_bld"]
+	path = app_bld
+	url = http://giteaz:3000/frida_analyze_app_src/app_bld.git
