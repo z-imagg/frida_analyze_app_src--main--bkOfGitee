@@ -22,3 +22,6 @@
 [submodule "app_bld"]
 	path = app_bld
 	url = http://giteaz:3000/frida_analyze_app_src/app_bld.git
+[submodule "app/linux-modify"]
+	path = app/linux-modify
+	url = http://giteaz:3000/frida_analyze_app_src/linux-modify.git
